@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cofense Customization Portal</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- Okta Auth JS CDN -->
+    <script src="https://global.oktacdn.com/okta-auth-js/7.7.0/okta-auth-js.min.js"></script>
+</head>
+<body>
+    <!-- Loading State -->
+    <div id="loading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Login Required State -->
+    <div id="login-required" class="login-container" style="display: none;">
+        <div class="login-card">
+            <h1>Cofense Customization Portal</h1>
+            <p class="subtitle">Create, customize, and manage email, education, and e-learning templates that engage your team and strengthen security awareness</p>
+            <button id="login-btn" class="btn-primary">Sign In with Okta</button>
+        </div>
+    </div>
+
+    <!-- Main Application (Authenticated) -->
+    <div id="app" style="display: none;">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>Cofense Customization Portal</h1>
+                <div class="user-menu">
+                    <span id="user-name" class="user-name"></span>
+                    <span id="user-org" class="user-org"></span>
+                    <button id="logout-btn" class="btn-secondary">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <p class="content-subtitle">Create, customize, and manage email, education, and e-learning templates that engage your team and strengthen security awareness</p>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="content-tabs">
+                <button class="tab-btn active" data-tab="emails">Emails</button>
+                <button class="tab-btn" data-tab="newsletters">Newsletters</button>
+                <button class="tab-btn" data-tab="education">Education</button>
+                <button class="tab-btn" data-tab="infographics">Infographics</button>
+                <button class="tab-btn" data-tab="videos">Videos</button>
+                <button class="tab-btn" data-tab="elearning">E-Learning</button>
+            </nav>
+
+            <!-- Search and Filters -->
+            <div class="content-controls">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search templates..." class="search-input">
+                </div>
+                <div class="filter-container">
+                    <button class="filter-btn">Theme</button>
+                    <button class="filter-btn">Languages</button>
+                    <button class="filter-btn">Industry</button>
+                    <button class="filter-btn">More Filters</button>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div id="content-grid" class="content-grid">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </main>
+
+        <!-- Brand Kit Modal (will be shown when customizing) -->
+        <div id="brand-kit-modal" class="modal" style="display: none;">
+            <div class="modal-content brand-kit-content">
+                <div class="modal-header">
+                    <h2>Brand Kit Manager</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="brand-kit-body">
+                    <div class="brand-kit-left">
+                        <div class="brand-kit-section">
+                            <div class="brand-kit-status">
+                                <span class="status-indicator"></span>
+                                <span>Brand Kit Available</span>
+                            </div>
+                            <button class="btn-primary apply-brand-btn">Apply Brand Kit</button>
+                        </div>
+                        <div class="brand-kit-section">
+                            <h3>Logo</h3>
+                            <div class="upload-area" id="logo-upload">
+                                <p>Upload Logo</p>
+                                <p class="upload-hint">JPG, JPEG, PNG, GIF, WebP up to 10MB</p>
+                            </div>
+                        </div>
+                        <div class="brand-kit-section">
+                            <h3>Brand Fonts</h3>
+                            <select class="font-select">
+                                <option>Select Font</option>
+                            </select>
+                            <div class="upload-area" id="font-upload">
+                                <p>Upload Fonts</p>
+                                <p class="upload-hint">WOFF, WOFF2, TTF, OTF up to 10MB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="brand-kit-right">
+                        <div class="brand-kit-section">
+                            <h3>Brand Colours</h3>
+                            <div class="color-picker-container">
+                                <div class="color-gradient"></div>
+                                <input type="color" id="color-picker" class="color-input">
+                                <input type="text" id="color-hex" class="color-hex-input" placeholder="#4F46E5">
+                            </div>
+                            <div class="saved-colors">
+                                <!-- Saved colors will appear here -->
+                            </div>
+                            <button class="btn-add-color">+ Add Color</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
