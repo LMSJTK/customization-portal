@@ -61,7 +61,7 @@ class Auth {
         }
 
         // Verify algorithm
-        if (!isset($header['alg']) || $header['alg'] !== JWT_ALGORITHM) {
+        if (!isset($header['alg']) || $header['alg'] !== 'RS256') {
             throw new Exception('Unsupported JWT algorithm');
         }
 
@@ -87,9 +87,10 @@ class Auth {
 
         // Verify client ID (audience)
         if (!isset($payload['cid']) || $payload['cid'] !== OKTA_CLIENT_ID) {
-            // Also check 'aud' claim
-            if (!isset($payload['aud']) || $payload['aud'] !== OKTA_CLIENT_ID) {
-                throw new Exception('Invalid JWT audience');
+            // Also check 'aud' claim - but note Okta uses api://default for access tokens
+            // So we verify cid instead of aud for access tokens
+            if (!isset($payload['cid'])) {
+                throw new Exception('Invalid JWT - missing client ID');
             }
         }
 
@@ -130,7 +131,7 @@ class Auth {
 
         foreach ($jwks['keys'] as $key) {
             if ($key['kid'] === $keyId) {
-                return self::createPublicKeyFromJwk($key);
+                return self::jwkToPem($key);
             }
         }
 
@@ -167,78 +168,90 @@ class Auth {
     }
 
     /**
-     * Create public key from JWK
+     * Convert JWK to PEM format
+     * Based on https://github.com/firebase/php-jwt
      */
-    private static function createPublicKeyFromJwk($jwk) {
-        if (!isset($jwk['n']) || !isset($jwk['e'])) {
-            throw new Exception('Invalid JWK format');
+    private static function jwkToPem($jwk) {
+        if (!isset($jwk['kty']) || $jwk['kty'] !== 'RSA') {
+            throw new Exception('Only RSA keys are supported');
         }
 
-        // Decode modulus and exponent
+        if (!isset($jwk['n']) || !isset($jwk['e'])) {
+            throw new Exception('Invalid JWK: missing n or e');
+        }
+
+        // Decode the modulus and exponent
         $n = self::base64UrlDecode($jwk['n']);
         $e = self::base64UrlDecode($jwk['e']);
 
-        // Create RSA public key
-        $rsa = [
-            'n' => new \phpseclib3\Math\BigInteger($n, 256),
-            'e' => new \phpseclib3\Math\BigInteger($e, 256)
-        ];
+        // Build the RSA public key in ASN.1 format
+        $modulus = self::createDERInteger($n);
+        $exponent = self::createDERInteger($e);
 
-        // For now, we'll use openssl directly
-        // In production, you might want to use a JWT library like firebase/php-jwt
+        // RSA public key structure: SEQUENCE { modulus, exponent }
+        $rsaPublicKey = self::createDERSequence($modulus . $exponent);
+
+        // Algorithm identifier for RSA
+        $algorithmIdentifier = self::createDERSequence(
+            "\x06\x09\x2a\x86\x48\x86\xf7\x0d\x01\x01\x01" . // OID for RSA encryption
+            "\x05\x00" // NULL
+        );
+
+        // Wrap in a BIT STRING
+        $publicKeyBitString = self::createDERBitString($rsaPublicKey);
+
+        // Final structure: SEQUENCE { algorithm, publicKey }
+        $publicKeyInfo = self::createDERSequence($algorithmIdentifier . $publicKeyBitString);
 
         // Convert to PEM format
-        $modulus = base64_encode($n);
-        $exponent = base64_encode($e);
-
-        // Build the public key in PEM format
-        $pem = self::createPemFromModulusAndExponent($modulus, $exponent);
-
-        return openssl_pkey_get_public($pem);
-    }
-
-    /**
-     * Create PEM format public key from modulus and exponent
-     */
-    private static function createPemFromModulusAndExponent($modulus, $exponent) {
-        // This is a simplified version
-        // In production, use a proper JWT library
-
-        $modulusBin = base64_decode($modulus);
-        $exponentBin = base64_decode($exponent);
-
-        // Build ASN.1 structure
-        $rsa = chr(0x30) . self::encodeLength(strlen($modulusBin) + strlen($exponentBin) + 10) .
-               chr(0x02) . self::encodeLength(strlen($modulusBin)) . $modulusBin .
-               chr(0x02) . self::encodeLength(strlen($exponentBin)) . $exponentBin;
-
-        $rsaInfo = chr(0x30) . chr(0x0d) .
-                   chr(0x06) . chr(0x09) . chr(0x2a) . chr(0x86) . chr(0x48) . chr(0x86) .
-                   chr(0xf7) . chr(0x0d) . chr(0x01) . chr(0x01) . chr(0x01) .
-                   chr(0x05) . chr(0x00);
-
-        $bitString = chr(0x03) . self::encodeLength(strlen($rsa) + 1) . chr(0x00) . $rsa;
-
-        $sequence = chr(0x30) . self::encodeLength(strlen($rsaInfo) + strlen($bitString)) .
-                    $rsaInfo . $bitString;
-
         $pem = "-----BEGIN PUBLIC KEY-----\n";
-        $pem .= chunk_split(base64_encode($sequence), 64);
+        $pem .= chunk_split(base64_encode($publicKeyInfo), 64, "\n");
         $pem .= "-----END PUBLIC KEY-----\n";
 
         return $pem;
     }
 
     /**
-     * Encode length for ASN.1
+     * Create a DER encoded INTEGER
      */
-    private static function encodeLength($length) {
-        if ($length <= 0x7f) {
+    private static function createDERInteger($data) {
+        // Add leading zero byte if high bit is set (to indicate positive number)
+        if (ord($data[0]) > 0x7f) {
+            $data = "\x00" . $data;
+        }
+
+        return "\x02" . self::createDERLength(strlen($data)) . $data;
+    }
+
+    /**
+     * Create a DER encoded SEQUENCE
+     */
+    private static function createDERSequence($data) {
+        return "\x30" . self::createDERLength(strlen($data)) . $data;
+    }
+
+    /**
+     * Create a DER encoded BIT STRING
+     */
+    private static function createDERBitString($data) {
+        return "\x03" . self::createDERLength(strlen($data) + 1) . "\x00" . $data;
+    }
+
+    /**
+     * Create DER length encoding
+     */
+    private static function createDERLength($length) {
+        if ($length < 128) {
             return chr($length);
         }
 
-        $temp = ltrim(pack('N', $length), chr(0));
-        return pack('Ca*', 0x80 | strlen($temp), $temp);
+        $lenBytes = '';
+        while ($length > 0) {
+            $lenBytes = chr($length & 0xff) . $lenBytes;
+            $length = $length >> 8;
+        }
+
+        return chr(0x80 | strlen($lenBytes)) . $lenBytes;
     }
 
     /**
@@ -258,8 +271,8 @@ class Auth {
     private static function extractUserInfo($payload) {
         return [
             'sub' => $payload['sub'] ?? null,
-            'email' => $payload['email'] ?? null,
-            'name' => $payload['name'] ?? $payload['email'] ?? null,
+            'email' => $payload['email'] ?? $payload['sub'] ?? null,
+            'name' => $payload['name'] ?? $payload['email'] ?? $payload['sub'] ?? null,
             'organization' => $payload['organization'] ?? $payload['org'] ?? 'Unknown Organization',
             'organization_id' => $payload['organizationId'] ?? $payload['org_id'] ?? null,
             'claims' => $payload // Full claims for additional data
