@@ -7,6 +7,7 @@ class CustomizationPortal {
     constructor() {
         this.currentTab = 'emails';
         this.contentItems = [];
+        this.initialized = false;
         this.init();
     }
 
@@ -14,20 +15,34 @@ class CustomizationPortal {
      * Initialize the application
      */
     init() {
-        // Wait for authentication to be ready
+        // Set up event listeners for login/logout first
+        this.setupAuthListeners();
+
+        // Check if auth is already ready (race condition fix)
+        if (window.authManager && window.authManager.getCurrentUser()) {
+            console.log('Auth already ready, initializing app immediately');
+            this.onAuthReady(window.authManager.getCurrentUser());
+        }
+
+        // Also wait for authentication to be ready (for initial login)
         window.addEventListener('auth:ready', (event) => {
+            console.log('Received auth:ready event');
             this.onAuthReady(event.detail.user);
         });
-
-        // Set up event listeners for login/logout
-        this.setupAuthListeners();
     }
 
     /**
      * Called when authentication is ready
      */
     onAuthReady(user) {
+        // Prevent double initialization
+        if (this.initialized) {
+            console.log('App already initialized, skipping');
+            return;
+        }
+
         console.log('Application ready for user:', user);
+        this.initialized = true;
 
         // Update user info in header
         this.updateUserInfo(user);
