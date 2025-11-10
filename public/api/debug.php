@@ -15,7 +15,7 @@ echo "   Status: " . (version_compare(phpversion(), '7.4.0', '>=') ? "✓ OK" : 
 
 // Check if .env file exists
 echo "2. Environment File (.env):\n";
-$envPath = __DIR__ . '/../.env';
+$envPath = __DIR__ . '/../../.env';
 if (file_exists($envPath)) {
     echo "   Status: ✓ Found\n";
 

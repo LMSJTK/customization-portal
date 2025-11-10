@@ -36,16 +36,19 @@ customization-portal/
 │   ├── .htaccess          # Apache configuration
 │   ├── css/
 │   │   └── styles.css     # Application styles
-│   └── js/
-│       ├── config.js      # Okta configuration
-│       ├── auth.js        # Authentication module
-│       └── app.js         # Main application logic
-├── api/                   # Backend PHP API
-│   ├── config.php         # Application configuration
-│   ├── db.php             # Database connection
-│   ├── auth.php           # Authentication middleware
-│   └── content.php        # Content API endpoints
+│   ├── js/
+│   │   ├── config.js      # Okta configuration
+│   │   ├── auth.js        # Authentication module
+│   │   └── app.js         # Main application logic
+│   └── api/               # Backend PHP API
+│       ├── config.php     # Application configuration
+│       ├── db.php         # Database connection
+│       ├── auth.php       # Authentication middleware
+│       ├── content.php    # Content API endpoints
+│       ├── test.php       # Simple API test endpoint
+│       └── debug.php      # Diagnostic script
 ├── .env.example           # Environment variables template
+├── .env                   # Environment variables (create from .env.example)
 ├── CustomizationPortal.pdf        # Figma UI mockups
 └── SPA_Auth_JS_javascript.pdf     # Okta Auth documentation
 ```

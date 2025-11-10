@@ -13,8 +13,8 @@ ini_set('display_errors', 1);
 date_default_timezone_set('UTC');
 
 // Load environment variables from .env file if it exists
-if (file_exists(__DIR__ . '/../.env')) {
-    $lines = file(__DIR__ . '/../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+if (file_exists(__DIR__ . '/../../.env')) {
+    $lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         // Skip comments
         if (strpos(trim($line), '#') === 0) {
