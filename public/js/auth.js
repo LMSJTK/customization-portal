@@ -38,12 +38,14 @@ class AuthManager {
             clientId: config.clientId,
             redirectUri: config.redirectUri,
             scopes: config.scopes,
-            pkce: config.pkce,
-            tokenManager: {
-                autoRenew: true,
-                storage: 'localStorage'
-            }
+            pkce: config.pkce
         });
+
+        console.log('OktaAuth initialized');
+
+        // Start token manager to enable auto-renewal
+        this.authClient.start();
+        console.log('TokenManager started');
 
         // Set up token renewal listener
         this.authClient.tokenManager.on('renewed', (key, newToken, oldToken) => {
@@ -56,11 +58,11 @@ class AuthManager {
         // Set up token expiration listener
         this.authClient.tokenManager.on('expired', (key, expiredToken) => {
             console.log('Token expired:', key);
-            // Try to renew the token
-            this.authClient.tokenManager.renew(key).catch(err => {
-                console.error('Failed to renew token:', err);
-                this.showLoginScreen();
-            });
+        });
+
+        // Set up error listener
+        this.authClient.tokenManager.on('error', (err) => {
+            console.error('TokenManager error:', err);
         });
 
         // Start authentication flow
