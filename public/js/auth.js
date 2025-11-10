@@ -38,7 +38,29 @@ class AuthManager {
             clientId: config.clientId,
             redirectUri: config.redirectUri,
             scopes: config.scopes,
-            pkce: config.pkce
+            pkce: config.pkce,
+            tokenManager: {
+                autoRenew: true,
+                storage: 'localStorage'
+            }
+        });
+
+        // Set up token renewal listener
+        this.authClient.tokenManager.on('renewed', (key, newToken, oldToken) => {
+            console.log('Token renewed:', key);
+            if (key === 'accessToken') {
+                this.accessToken = newToken.accessToken;
+            }
+        });
+
+        // Set up token expiration listener
+        this.authClient.tokenManager.on('expired', (key, expiredToken) => {
+            console.log('Token expired:', key);
+            // Try to renew the token
+            this.authClient.tokenManager.renew(key).catch(err => {
+                console.error('Failed to renew token:', err);
+                this.showLoginScreen();
+            });
         });
 
         // Start authentication flow
@@ -68,15 +90,23 @@ class AuthManager {
      */
     async handleLoginRedirect() {
         try {
+            console.log('Handling login redirect...');
             // Parse tokens from URL
             const { tokens } = await this.authClient.token.parseFromUrl();
 
+            console.log('Tokens received:', {
+                accessToken: tokens.accessToken ? 'Yes' : 'No',
+                idToken: tokens.idToken ? 'Yes' : 'No'
+            });
+
             // Store tokens
             this.authClient.tokenManager.setTokens(tokens);
+            console.log('Tokens stored in tokenManager');
 
             // Set access token for API calls
             if (tokens.accessToken) {
                 this.accessToken = tokens.accessToken.accessToken;
+                console.log('Access token set for API calls');
             }
 
             // Get user info and show app
@@ -96,16 +126,22 @@ class AuthManager {
      */
     async checkAuthentication() {
         try {
+            console.log('Checking authentication...');
             const accessToken = await this.authClient.tokenManager.get('accessToken');
             const idToken = await this.authClient.tokenManager.get('idToken');
 
+            console.log('Access token:', accessToken ? 'Found' : 'Not found');
+            console.log('ID token:', idToken ? 'Found' : 'Not found');
+
             if (accessToken && idToken) {
                 // User is authenticated
+                console.log('User is authenticated, setting access token');
                 this.accessToken = accessToken.accessToken;
                 await this.getUserInfo();
                 this.showApp();
             } else {
                 // User is not authenticated
+                console.log('No valid tokens found, showing login screen');
                 this.showLoginScreen();
             }
         } catch (error) {
