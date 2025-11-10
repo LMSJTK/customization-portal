@@ -86,12 +86,13 @@ class Auth {
         }
 
         // Verify client ID (audience)
-        if (!isset($payload['cid']) || $payload['cid'] !== OKTA_CLIENT_ID) {
-            // Also check 'aud' claim - but note Okta uses api://default for access tokens
-            // So we verify cid instead of aud for access tokens
-            if (!isset($payload['cid'])) {
-                throw new Exception('Invalid JWT - missing client ID');
-            }
+        // For access tokens, Okta uses 'cid' claim for the client ID
+        if (!isset($payload['cid'])) {
+            throw new Exception('Invalid JWT - missing client ID');
+        }
+
+        if ($payload['cid'] !== OKTA_CLIENT_ID) {
+            throw new Exception('Invalid JWT - client ID does not match');
         }
 
         // Verify signature
