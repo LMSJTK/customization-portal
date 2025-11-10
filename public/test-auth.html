@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 { color: #333; }
+        .section {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .warning { color: orange; }
+        button {
+            background: #4F46E5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #4338CA; }
+        pre {
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Authentication Test Page</h1>
+
+    <div class="section">
+        <h2>Status</h2>
+        <div id="status">Checking...</div>
+    </div>
+
+    <div class="section">
+        <h2>Actions</h2>
+        <button onclick="testToken()">Test Access Token</button>
+        <button onclick="testApiCall()">Test API Call</button>
+        <button onclick="testTokenDebug()">Test Token Debug Endpoint</button>
+        <button onclick="location.reload()">Refresh Page</button>
+    </div>
+
+    <div class="section">
+        <h2>Results</h2>
+        <pre id="results">Click a button above to run tests...</pre>
+    </div>
+
+    <script src="https://global.oktacdn.com/okta-auth-js/7.7.0/okta-auth-js.min.js"></script>
+    <script src="/js/config.js"></script>
+
+    <script>
+        let authClient;
+        let accessToken = null;
+
+        async function init() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+
+            try {
+                // Initialize Okta Auth Client
+                authClient = new OktaAuth({
+                    issuer: window.OKTA_CONFIG.issuer,
+                    clientId: window.OKTA_CONFIG.clientId,
+                    redirectUri: window.OKTA_CONFIG.redirectUri,
+                    scopes: window.OKTA_CONFIG.scopes,
+                    pkce: window.OKTA_CONFIG.pkce
+                });
+
+                statusDiv.innerHTML = '<span class="success">✓ Okta Auth Client initialized</span>';
+
+                // Check if authenticated
+                const isAuthenticated = await authClient.isAuthenticated();
+
+                if (isAuthenticated) {
+                    const tokenObj = await authClient.tokenManager.get('accessToken');
+                    const idTokenObj = await authClient.tokenManager.get('idToken');
+
+                    if (tokenObj) {
+                        accessToken = tokenObj.accessToken;
+                        statusDiv.innerHTML += '<br><span class="success">✓ User is authenticated</span>';
+                        statusDiv.innerHTML += '<br><span class="success">✓ Access token found</span>';
+                        statusDiv.innerHTML += '<br>Token length: ' + accessToken.length + ' characters';
+                        statusDiv.innerHTML += '<br>Token expires: ' + new Date(tokenObj.expiresAt * 1000).toLocaleString();
+                    } else {
+                        statusDiv.innerHTML += '<br><span class="error">✗ No access token found</span>';
+                    }
+
+                    if (idTokenObj) {
+                        statusDiv.innerHTML += '<br><span class="success">✓ ID token found</span>';
+                        statusDiv.innerHTML += '<br>User: ' + (idTokenObj.claims.name || idTokenObj.claims.email);
+                    }
+                } else {
+                    statusDiv.innerHTML += '<br><span class="warning">⚠ User is not authenticated</span>';
+                    statusDiv.innerHTML += '<br><a href="/">Go to main page to login</a>';
+                }
+
+            } catch (error) {
+                statusDiv.innerHTML = '<span class="error">✗ Error: ' + error.message + '</span>';
+                resultsDiv.textContent = 'Error initializing:\n' + JSON.stringify(error, null, 2);
+            }
+        }
+
+        function testToken() {
+            const resultsDiv = document.getElementById('results');
+
+            if (!accessToken) {
+                resultsDiv.textContent = 'ERROR: No access token available. Please login first.';
+                return;
+            }
+
+            // Decode token parts (without verification)
+            const parts = accessToken.split('.');
+            const header = JSON.parse(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')));
+            const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+
+            const result = {
+                token_length: accessToken.length,
+                token_parts: parts.length,
+                header: header,
+                payload: payload,
+                expires_at: new Date(payload.exp * 1000).toLocaleString(),
+                is_expired: payload.exp < (Date.now() / 1000)
+            };
+
+            resultsDiv.textContent = JSON.stringify(result, null, 2);
+        }
+
+        async function testApiCall() {
+            const resultsDiv = document.getElementById('results');
+
+            if (!accessToken) {
+                resultsDiv.textContent = 'ERROR: No access token available. Please login first.';
+                return;
+            }
+
+            try {
+                resultsDiv.textContent = 'Making API call to /api/content.php?type=emails...\n';
+
+                const response = await fetch('/api/content.php?type=emails', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                const data = await response.json();
+
+                const result = {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: {
+                        'content-type': response.headers.get('content-type')
+                    },
+                    body: data
+                };
+
+                resultsDiv.textContent = JSON.stringify(result, null, 2);
+
+                if (response.ok) {
+                    resultsDiv.textContent = 'SUCCESS!\n\n' + resultsDiv.textContent;
+                } else {
+                    resultsDiv.textContent = 'FAILED!\n\n' + resultsDiv.textContent;
+                }
+
+            } catch (error) {
+                resultsDiv.textContent = 'ERROR: ' + error.message + '\n\n' + JSON.stringify(error, null, 2);
+            }
+        }
+
+        async function testTokenDebug() {
+            const resultsDiv = document.getElementById('results');
+
+            if (!accessToken) {
+                resultsDiv.textContent = 'ERROR: No access token available. Please login first.';
+                return;
+            }
+
+            try {
+                resultsDiv.textContent = 'Sending token to debug endpoint...\n';
+
+                const response = await fetch('/api/token-debug.php', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                const data = await response.json();
+                resultsDiv.textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                resultsDiv.textContent = 'ERROR: ' + error.message + '\n\n' + JSON.stringify(error, null, 2);
+            }
+        }
+
+        // Initialize on page load
+        init();
+    </script>
+</body>
+</html>
