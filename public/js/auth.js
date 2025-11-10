@@ -74,6 +74,11 @@ class AuthManager {
             // Store tokens
             this.authClient.tokenManager.setTokens(tokens);
 
+            // Set access token for API calls
+            if (tokens.accessToken) {
+                this.accessToken = tokens.accessToken.accessToken;
+            }
+
             // Get user info and show app
             await this.getUserInfo();
             this.showApp();
