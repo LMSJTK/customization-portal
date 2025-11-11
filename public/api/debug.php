@@ -107,7 +107,7 @@ if (file_exists($envPath)) {
             echo "   - Run the schema from README.md\n\n";
         }
     }
-} else {
+} } else {
     echo "   Status: ⊘ SKIPPED (missing .env or pdo_pgsql extension)\n\n";
 }
 
