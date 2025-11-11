@@ -232,7 +232,8 @@ function handleDelete($db, $user) {
  * Get content by ID
  */
 function getContentById($db, $contentId, $user) {
-    $sql = "SELECT * FROM global.content WHERE id = :id LIMIT 1";
+    $tableName = getTableName('content');
+    $sql = "SELECT * FROM $tableName WHERE id = :id LIMIT 1";
     $result = $db->queryOne($sql, ['id' => $contentId]);
     return $result ?: null;
 }
@@ -241,6 +242,7 @@ function getContentById($db, $contentId, $user) {
  * Get list of content with optional filtering
  */
 function getContentList($db, $contentType, $user) {
+    $tableName = getTableName('content');
     $sql = "SELECT
                 id,
                 company_id,
@@ -252,7 +254,7 @@ function getContentList($db, $contentType, $user) {
                 email_subject,
                 created_at,
                 updated_at
-            FROM global.content
+            FROM $tableName
             WHERE 1=1";
 
     $params = [];
@@ -280,7 +282,8 @@ function createContent($db, $data, $user) {
     // Use organization ID from Okta claims
     $companyId = $user['organization_id'] ?? 'unknown';
 
-    $sql = "INSERT INTO global.content (
+    $tableName = getTableName('content');
+    $sql = "INSERT INTO $tableName (
                 id,
                 company_id,
                 title,
@@ -359,7 +362,8 @@ function updateContent($db, $contentId, $data, $user) {
 
     $updateFields[] = "updated_at = NOW()";
 
-    $sql = "UPDATE global.content SET " . implode(', ', $updateFields) . " WHERE id = :id";
+    $tableName = getTableName('content');
+    $sql = "UPDATE $tableName SET " . implode(', ', $updateFields) . " WHERE id = :id";
 
     $rowCount = $db->execute($sql, $params);
 
@@ -373,7 +377,8 @@ function deleteContent($db, $contentId, $user) {
     // For now, we'll allow deletion of any content
     // In production, you might want to add authorization checks
 
-    $sql = "DELETE FROM global.content WHERE id = :id";
+    $tableName = getTableName('content');
+    $sql = "DELETE FROM $tableName WHERE id = :id";
     $rowCount = $db->execute($sql, ['id' => $contentId]);
 
     return $rowCount > 0;

@@ -39,11 +39,13 @@ if (file_exists(__DIR__ . '/../../.env')) {
 }
 
 // Database configuration
+define('DB_TYPE', getenv('DB_TYPE') ?: 'pgsql'); // pgsql or mysql
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_PORT', getenv('DB_PORT') ?: '5432');
+define('DB_PORT', getenv('DB_PORT') ?: (DB_TYPE === 'mysql' ? '3306' : '5432'));
 define('DB_NAME', getenv('DB_NAME') ?: 'customization_portal');
-define('DB_USER', getenv('DB_USER') ?: 'postgres');
+define('DB_USER', getenv('DB_USER') ?: (DB_TYPE === 'mysql' ? 'root' : 'postgres'));
 define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_SCHEMA', getenv('DB_SCHEMA') ?: 'global'); // PostgreSQL schema (not used for MySQL)
 
 // Okta configuration
 define('OKTA_DOMAIN', getenv('OKTA_DOMAIN') ?: '');
@@ -76,10 +78,30 @@ function getOktaJwksUrl() {
  * Get full database DSN
  */
 function getDatabaseDsn() {
-    return sprintf(
-        'pgsql:host=%s;port=%s;dbname=%s',
-        DB_HOST,
-        DB_PORT,
-        DB_NAME
-    );
+    if (DB_TYPE === 'mysql') {
+        return sprintf(
+            'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
+            DB_HOST,
+            DB_PORT,
+            DB_NAME
+        );
+    } else {
+        return sprintf(
+            'pgsql:host=%s;port=%s;dbname=%s',
+            DB_HOST,
+            DB_PORT,
+            DB_NAME
+        );
+    }
+}
+
+/**
+ * Get table name with schema (for PostgreSQL) or without (for MySQL)
+ */
+function getTableName($table) {
+    if (DB_TYPE === 'mysql') {
+        return $table;
+    } else {
+        return DB_SCHEMA . '.' . $table;
+    }
 }
