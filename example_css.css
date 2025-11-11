@@ -1,0 +1,5402 @@
+@charset "UTF-8";
+/* (c) 2021 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */
+/* stylelint-disable scss/operator-no-unspaced */
+/* stylelint-enable scss/operator-no-unspaced */
+/* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */ /* (c) 2020 Cofense Inc. */
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: url("~typeface-inter/Inter (web)/Inter-Regular.woff2") format("woff2"), url("~typeface-inter/Inter (web)/Inter-Regular.woff") format("woff");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 400;
+  src: url("~typeface-inter/Inter (web)/Inter-Italic.woff2") format("woff2"), url("~typeface-inter/Inter (web)/Inter-Italic.woff") format("woff");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  src: url("~typeface-inter/Inter (web)/Inter-SemiBold.woff2") format("woff2"), url("~typeface-inter/Inter (web)/Inter-SemiBold.woff") format("woff");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  src: url("~typeface-inter/Inter (web)/Inter-ExtraBold.woff2") format("woff2"), url("~typeface-inter/Inter (web)/Inter-ExtraBold.woff") format("woff");
+}
+/* (c) 2020 Cofense Inc. */
+@font-face {
+  font-display: swap;
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("~typeface-source-code-pro/files/source-code-pro-latin-400.woff2") format("woff2"), url("~typeface-source-code-pro/files/source-code-pro-latin-400.woff") format("woff");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 600;
+  src: url("~typeface-source-code-pro/files/source-code-pro-latin-600.woff2") format("woff2"), url("~typeface-source-code-pro/files/source-code-pro-latin-600.woff") format("woff");
+}
+/* (c) 2020 Cofense Inc. */
+.koi_a-fade-enter-active,
+.koi_a-fade-leave-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.koi_a-fade-enter,
+.koi_a-fade-leave-active,
+.koi_a-fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes koi_a-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+@keyframes koi_a-fade-out {
+  0% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* (c) 2020 Cofense Inc. */
+@keyframes koi_a-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+/* (c) 2020 Cofense Inc. */
+html {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+*,
+* *::after,
+* *::before {
+  box-sizing: inherit;
+}
+
+body {
+  color: #0f2538;
+  font-family: Inter, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+}
+
+main {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  font-size: inherit;
+  font-weight: normal;
+  margin: 0;
+}
+
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+dl,
+dd {
+  margin: 0;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: normal;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+cite {
+  font-style: normal;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace;
+  font-size: 16px;
+}
+
+small {
+  font-size: 75%;
+}
+
+sub,
+sup {
+  font-size: 12px;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+img {
+  border-style: none;
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  border-radius: 0;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.5;
+  margin: 0;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* (c) 2020 Cofense Inc. */
+.flatpickr-calendar {
+  animation: none;
+  background: transparent;
+  background: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  color: #0f2538;
+  direction: ltr;
+  display: none;
+  font-family: Inter, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 2px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  touch-action: manipulation;
+  visibility: hidden;
+}
+
+.flatpickr-calendar.open,
+.flatpickr-calendar.inline {
+  max-height: 640px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.flatpickr-calendar.open {
+  display: inline-block;
+  z-index: 99999;
+}
+
+.flatpickr-calendar.animate.open {
+  animation: fpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.flatpickr-calendar.inline {
+  display: block;
+  position: relative;
+  top: 2px;
+}
+
+.flatpickr-calendar.static {
+  position: absolute;
+  top: calc(100% + 2px);
+}
+
+.flatpickr-calendar.static.open {
+  display: block;
+  z-index: 999;
+}
+
+.flatpickr-calendar.multiMonth .flatpickr-days .dayContainer:nth-child(n+1) .flatpickr-day.inRange:nth-child(7n+7) {
+  /* stylelint-disable declaration-no-important */
+  box-shadow: none !important;
+  /* stylelint-enable declaration-no-important */
+}
+
+.flatpickr-calendar.multiMonth .flatpickr-days .dayContainer:nth-child(n+2) .flatpickr-day.inRange:nth-child(7n+1) {
+  box-shadow: -2px 0 0 #ecf4ff, 5px 0 0 #ecf4ff;
+}
+
+.flatpickr-calendar .hasWeeks .dayContainer,
+.flatpickr-calendar .hasTime .dayContainer {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.flatpickr-calendar .hasWeeks .dayContainer {
+  border-left: 0;
+}
+
+.flatpickr-calendar.showTimeInput.hasTime .flatpickr-time {
+  border-top: 1px solid #e6e6e6;
+  height: 40px;
+}
+
+.flatpickr-calendar.noCalendar.hasTime .flatpickr-time {
+  height: auto;
+}
+
+.flatpickr-calendar::before,
+.flatpickr-calendar::after {
+  border: solid transparent;
+  content: "";
+  display: block;
+  height: 0;
+  left: 22px;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+}
+
+.flatpickr-calendar.rightMost::before,
+.flatpickr-calendar.rightMost::after {
+  left: auto;
+  right: 22px;
+}
+
+.flatpickr-calendar:focus {
+  outline: 0;
+}
+
+.flatpickr-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.flatpickr-months {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  width: 326px;
+}
+
+.flatpickr-months .flatpickr-month {
+  background: transparent;
+  flex-grow: 1;
+  height: 32px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  user-select: none;
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  border-radius: 999px;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 32px;
+  position: relative;
+  text-decoration: none;
+  width: 32px;
+  z-index: 3;
+}
+
+.flatpickr-months .flatpickr-prev-month.flatpickr-disabled,
+.flatpickr-months .flatpickr-next-month.flatpickr-disabled {
+  display: none;
+}
+
+.flatpickr-months .flatpickr-prev-month i,
+.flatpickr-months .flatpickr-next-month i {
+  position: relative;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+  background-color: #ecf4ff;
+  color: #4a5568;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  stroke: #0f2538;
+}
+
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+  height: 14px;
+  left: 50%;
+  position: absolute;
+  stroke: #768191;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+}
+
+.flatpickr-months .flatpickr-prev-month svg path,
+.flatpickr-months .flatpickr-next-month svg path {
+  fill: inherit;
+  transition: fill 0.1s;
+}
+
+.numInputWrapper {
+  height: auto;
+  position: relative;
+}
+
+.numInputWrapper input,
+.numInputWrapper span {
+  display: inline-block;
+}
+
+.numInputWrapper input {
+  width: 100%;
+}
+
+.numInputWrapper input::-ms-clear {
+  display: none;
+}
+
+.numInputWrapper input::-webkit-outer-spin-button,
+.numInputWrapper input::-webkit-inner-spin-button {
+  display: none;
+  margin: 0;
+}
+
+.numInputWrapper span {
+  background-color: #f8f9fa;
+  border: 1px solid #d0d4da;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 50%;
+  line-height: 50%;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 16px;
+}
+
+.numInputWrapper span::after {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+.numInputWrapper span.arrowUp {
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
+  top: 0;
+}
+
+.numInputWrapper span.arrowUp::after,
+.numInputWrapper span.arrowDown::after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.numInputWrapper span.arrowUp::after {
+  border-bottom: 4px solid #d0d4da;
+}
+
+.numInputWrapper span.arrowDown {
+  border-radius: 0 0 2px 2px;
+  top: 50%;
+}
+
+.numInputWrapper span.arrowDown::after {
+  border-top: 4px solid #d0d4da;
+}
+
+.numInputWrapper span svg {
+  height: auto;
+  width: inherit;
+}
+
+.numInputWrapper span svg path {
+  fill: rgba(0, 0, 0, 0.5);
+}
+
+.numInputWrapper:hover span {
+  opacity: 1;
+}
+
+.flatpickr-current-month {
+  align-items: center;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+}
+
+.flatpickr-current-month span.cur-month {
+  color: inherit;
+  font-weight: 600;
+}
+
+.flatpickr-current-month span.cur-month:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.flatpickr-current-month .numInputWrapper {
+  display: inline-block;
+  width: 60px;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowUp::after {
+  border-bottom-color: #768191;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowUp:hover::after {
+  border-bottom-color: #4a5568;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowDown::after {
+  border-top-color: #768191;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowDown:hover::after {
+  border-top-color: #4a5568;
+}
+
+.flatpickr-current-month input.cur-year {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: text;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  height: auto;
+  line-height: 22px;
+  margin: 0;
+  padding-right: 8px;
+  vertical-align: initial;
+}
+
+.flatpickr-current-month input.cur-year:focus {
+  outline: 0;
+}
+
+.flatpickr-current-month input.cur-year[disabled],
+.flatpickr-current-month input.cur-year[disabled]:hover {
+  background: transparent;
+  font-size: 100%;
+  pointer-events: none;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  height: auto;
+  line-height: 22px;
+  margin-right: 4px;
+  outline: none;
+  position: relative;
+  vertical-align: initial;
+  width: auto;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:focus,
+.flatpickr-current-month .flatpickr-monthDropdown-months:active {
+  outline: none;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+  background: transparent;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+}
+
+.flatpickr-weekdays {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  height: 28px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
+.flatpickr-weekdays .flatpickr-weekdaycontainer {
+  display: flex;
+  flex: 1;
+}
+
+.flatpickr-weekday {
+  background: transparent;
+  color: #0f2538;
+  cursor: default;
+  display: block;
+  flex: 1;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+  text-align: center;
+}
+
+.dayContainer,
+.flatpickr-weeks {
+  padding: 1px 0 0 0;
+}
+
+.flatpickr-days {
+  align-items: flex-start;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.flatpickr-days:focus {
+  outline: 0;
+}
+
+.dayContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  opacity: 1;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  transform: translate3d(0, 0, 0);
+  width: 100%;
+}
+
+.dayContainer + .dayContainer {
+  box-shadow: -1px 0 0 #e6e6e6;
+}
+
+.flatpickr-day {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #0f2538;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  justify-content: center;
+  line-height: 32px;
+  margin: 1px;
+  position: relative;
+  text-align: center;
+  width: 36px;
+}
+
+.flatpickr-day.inRange,
+.flatpickr-day.prevMonthDay.inRange,
+.flatpickr-day.nextMonthDay.inRange,
+.flatpickr-day.today.inRange,
+.flatpickr-day.prevMonthDay.today.inRange,
+.flatpickr-day.nextMonthDay.today.inRange,
+.flatpickr-day:hover,
+.flatpickr-day.prevMonthDay:hover,
+.flatpickr-day.nextMonthDay:hover,
+.flatpickr-day:focus,
+.flatpickr-day.prevMonthDay:focus,
+.flatpickr-day.nextMonthDay:focus {
+  background: #ecf4ff;
+  border-color: #ecf4ff;
+  cursor: pointer;
+  outline: 0;
+}
+
+.flatpickr-day.today {
+  border-color: #006df6;
+}
+
+.flatpickr-day.today:hover,
+.flatpickr-day.today:focus {
+  background: #ecf4ff;
+  border-color: #006df6;
+  color: #0f2538;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.startRange.prevMonthDay,
+.flatpickr-day.endRange.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay,
+.flatpickr-day.startRange.nextMonthDay,
+.flatpickr-day.endRange.nextMonthDay {
+  background: #006df6;
+  border-color: #006df6;
+  box-shadow: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.flatpickr-day.selected.startRange,
+.flatpickr-day.startRange.startRange,
+.flatpickr-day.endRange.startRange {
+  border-radius: 4px 0 0 4px;
+}
+
+.flatpickr-day.selected.endRange,
+.flatpickr-day.startRange.endRange,
+.flatpickr-day.endRange.endRange {
+  border-radius: 0 4px 4px 0;
+}
+
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+.flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+.flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+  box-shadow: -10px 0 0 #006df6;
+}
+
+.flatpickr-day.selected.startRange.endRange,
+.flatpickr-day.startRange.startRange.endRange,
+.flatpickr-day.endRange.startRange.endRange {
+  border-radius: 4px;
+}
+
+.flatpickr-day.inRange {
+  border-radius: 0;
+  box-shadow: -5px 0 0 #ecf4ff, 5px 0 0 #ecf4ff;
+}
+
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover,
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.notAllowed,
+.flatpickr-day.notAllowed.prevMonthDay,
+.flatpickr-day.notAllowed.nextMonthDay {
+  background: transparent;
+  border-color: transparent;
+  color: #768191;
+  cursor: default;
+}
+
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+  color: #768191;
+  cursor: not-allowed;
+}
+
+.flatpickr-day.week.selected {
+  border-radius: 0;
+  box-shadow: -5px 0 0 #569ff7, 5px 0 0 #569ff7;
+}
+
+.flatpickr-day.hidden {
+  visibility: hidden;
+}
+
+.rangeMode .flatpickr-day {
+  margin-top: 1px;
+}
+
+.flatpickr-weekwrapper .flatpickr-weeks {
+  box-shadow: 1px 0 0 #e6e6e6;
+  padding: 0 12px;
+}
+
+.flatpickr-weekwrapper .flatpickr-weekday {
+  line-height: 28px;
+  width: 100%;
+}
+
+.flatpickr-weekwrapper span.flatpickr-day,
+.flatpickr-weekwrapper span.flatpickr-day:hover {
+  background: transparent;
+  border: none;
+  color: rgba(57, 57, 57, 0.3);
+  cursor: default;
+  display: block;
+  max-width: none;
+  width: 100%;
+}
+
+.flatpickr-innerContainer {
+  box-sizing: border-box;
+  display: block;
+  display: flex;
+  overflow: hidden;
+  padding: 0 16px 16px 16px;
+  width: 326px;
+}
+
+.flatpickr-rContainer {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+.flatpickr-time {
+  box-sizing: border-box;
+  display: block;
+  display: flex;
+  height: 0;
+  line-height: 40px;
+  max-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.flatpickr-time::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.flatpickr-time .numInputWrapper {
+  flex: 1;
+  float: left;
+  height: 40px;
+  width: 40%;
+}
+
+.flatpickr-time .numInputWrapper span.arrowUp::after {
+  border-bottom-color: #768191;
+}
+
+.flatpickr-time .numInputWrapper span.arrowDown::after {
+  border-top-color: #4a5568;
+}
+
+.flatpickr-time.hasSeconds .numInputWrapper {
+  width: 26%;
+}
+
+.flatpickr-time.time24hr .numInputWrapper {
+  width: 49%;
+}
+
+.flatpickr-time input {
+  appearance: textfield;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #0f2538;
+  font-size: 14px;
+  height: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.flatpickr-time input.flatpickr-hour {
+  font-weight: bold;
+}
+
+.flatpickr-time input.flatpickr-minute,
+.flatpickr-time input.flatpickr-second {
+  font-weight: 400;
+}
+
+.flatpickr-time input:focus {
+  border: 0;
+  outline: 0;
+}
+
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+  align-self: center;
+  color: #0f2538;
+  float: left;
+  font-weight: bold;
+  height: inherit;
+  line-height: inherit;
+  user-select: none;
+  width: 2%;
+}
+
+.flatpickr-time .flatpickr-am-pm {
+  cursor: pointer;
+  font-weight: 400;
+  outline: 0;
+  text-align: center;
+  width: 18%;
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:focus {
+  background: #eeeeee;
+}
+
+.flatpickr-input[readonly] {
+  cursor: pointer;
+}
+
+@keyframes fpFadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+/* (c) 2020 Cofense Inc. */
+/* stylelint-disable declaration-no-important */
+.js-focus-visible :focus:not(.focus-visible),
+.js-focus-visible :focus:not(.focus-visible) ~ .koi_c-form-choice-group__button,
+.js-focus-visible :focus:not(.focus-visible) ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  outline: none !important;
+}
+
+/* stylelint-enable declaration-no-important */
+/* (c) 2020 Cofense Inc. */
+.fa-spin[data-icon=spinner-third] {
+  animation: fa-spin 1s infinite linear;
+}
+
+/* (c) 2020 Cofense Inc. */
+.tippy-box[data-animation=fade][data-state=hidden] {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+}
+
+[data-tippy-root] {
+  max-width: calc(100vw - 10px);
+}
+
+.tippy-box {
+  background-color: #0f2538;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 20px;
+  outline: 0;
+  position: relative;
+  transition-property: transform, visibility, opacity;
+}
+
+.tippy-box[data-placement^=top] > .tippy-arrow {
+  bottom: 0;
+}
+
+.tippy-box[data-placement^=top] > .tippy-arrow::before {
+  border-top-color: initial;
+  border-width: 8px 8px 0;
+  bottom: -7px;
+  left: 0;
+  transform-origin: center top;
+}
+
+.tippy-box[data-placement^=bottom] > .tippy-arrow {
+  top: 0;
+}
+
+.tippy-box[data-placement^=bottom] > .tippy-arrow::before {
+  border-bottom-color: initial;
+  border-width: 0 8px 8px;
+  left: 0;
+  top: -7px;
+  transform-origin: center bottom;
+}
+
+.tippy-box[data-placement^=left] > .tippy-arrow {
+  right: 0;
+}
+
+.tippy-box[data-placement^=left] > .tippy-arrow::before {
+  border-left-color: initial;
+  border-width: 8px 0 8px 8px;
+  right: -7px;
+  transform-origin: center left;
+}
+
+.tippy-box[data-placement^=right] > .tippy-arrow {
+  left: 0;
+}
+
+.tippy-box[data-placement^=right] > .tippy-arrow::before {
+  border-right-color: initial;
+  border-width: 8px 8px 8px 0;
+  left: -7px;
+  transform-origin: center right;
+}
+
+.tippy-box[data-inertia][data-state=visible] {
+  transition-timing-function: cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+
+.tippy-arrow {
+  color: #0f2538;
+  height: 16px;
+  width: 16px;
+}
+
+.tippy-arrow::before {
+  border-color: transparent;
+  border-style: solid;
+  content: "";
+  position: absolute;
+}
+
+.tippy-content {
+  padding: 8px 16px;
+  position: relative;
+  z-index: 1;
+}
+.tippy-content a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+.tippy-content a:focus {
+  outline: 1px solid #ffffff;
+  outline-offset: 2px;
+}
+.tippy-content b,
+.tippy-content strong {
+  font-weight: 600;
+}
+.tippy-content em,
+.tippy-content i {
+  font-style: italic;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-select {
+  width: 100%;
+}
+
+.v-select {
+  font-family: inherit;
+  position: relative;
+}
+
+.vs--disabled .vs__clear,
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__open-indicator,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected {
+  background-color: #f8f9fa;
+  color: #768191;
+  cursor: not-allowed;
+}
+
+.vs__dropdown-toggle {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+  white-space: normal;
+}
+.koi_c-form-select:not(.is-focused) .v-select:not(.vs--disabled) .vs__dropdown-toggle:hover {
+  border-color: #768191;
+}
+.vs--searchable .vs__dropdown-toggle {
+  cursor: text;
+}
+.vs--unsearchable .vs__dropdown-toggle {
+  cursor: pointer;
+}
+.is-invalid .vs__dropdown-toggle {
+  border-color: #cd202c;
+}
+.is-valid .vs__dropdown-toggle {
+  border-color: #49ab62;
+}
+.is-focused .vs__dropdown-toggle {
+  border-color: #006df6;
+}
+
+.vs__selected-options {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.vs__actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+}
+.vs__actions .koi_c-icon {
+  color: #768191;
+}
+
+.vs__open-indicator {
+  transform: scale(1);
+  transition: transform 0.25s ease;
+}
+.vs--open .vs__open-indicator {
+  transform: rotate(180deg) scale(1);
+}
+.vs--loading .vs__open-indicator {
+  display: none;
+}
+
+.vs__clear {
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.vs__dropdown-menu {
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  display: block;
+  list-style: none;
+  max-height: 275px;
+  overflow-y: auto;
+  text-align: left;
+  width: 100%;
+  z-index: 1100;
+}
+.v-select[dir=rtl] .vs__dropdown-menu {
+  text-align: right;
+}
+
+.vs__dropdown-option {
+  color: #0f2538;
+  display: block;
+  transition: background-color 0.25s ease;
+}
+.vs__dropdown-option:hover {
+  cursor: pointer;
+}
+
+.vs__dropdown-option--highlight,
+.vs__dropdown-option--selected {
+  background-color: #ecf4ff;
+}
+
+.vs__dropdown-option--disabled {
+  background-color: inherit;
+  color: #768191;
+}
+.vs__dropdown-option--disabled:hover {
+  cursor: inherit;
+}
+
+.v-select.vs--single .vs__selected {
+  color: #0f2538;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.v-select.vs--single.vs--searchable.vs--open .vs__selected {
+  display: none;
+}
+.v-select.vs--single.vs--searching .vs__selected {
+  display: none;
+}
+.v-select.vs--single.vs--disabled .vs__selected {
+  color: #768191;
+}
+
+.v-select:not(.vs--single) .vs__selected-options {
+  flex-wrap: wrap;
+}
+.v-select:not(.vs--single) .vs__selected {
+  align-items: center;
+  background-color: #ecf4ff;
+  border: 1px solid #006df6;
+  border-radius: 2px;
+  color: #004eaf;
+  display: flex;
+  font-weight: 600;
+  padding: 3px 3px 3px 7px;
+  z-index: 0;
+}
+.v-select:not(.vs--single) .vs__selected + .vs__search {
+  /* stylelint-disable-next-line declaration-no-important */
+  padding-left: 8px !important;
+}
+
+.vs__deselect {
+  appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+}
+.vs__deselect .koi_c-icon {
+  color: #004eaf;
+}
+
+.v-select.vs--searchable .vs__selected {
+  /* stylelint-disable-next-line declaration-no-important */
+  padding-right: 0 !important;
+}
+.v-select.vs--searchable .vs__actions {
+  /* stylelint-disable-next-line declaration-no-important */
+  padding-left: 0 !important;
+}
+
+.koi_c-form-select__tag-text {
+  display: inline-flex;
+  padding: 0 2px 0 4px;
+  word-break: break-all;
+}
+
+.vs__search::-webkit-search-cancel-button {
+  display: none;
+}
+
+.vs__search::-ms-clear,
+.vs__search::-webkit-search-decoration,
+.vs__search::-webkit-search-results-button,
+.vs__search::-webkit-search-results-decoration {
+  display: none;
+}
+
+.vs__search, .vs__search:focus {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-left: none;
+  box-shadow: none;
+  flex-grow: 1;
+  line-height: inherit;
+  max-width: 100%;
+  outline: none;
+  width: 0;
+  z-index: 1;
+}
+.vs__search::placeholder {
+  color: #768191;
+  font-style: italic;
+  opacity: 1;
+}
+.vs--unsearchable .vs__search {
+  flex-shrink: 1;
+  /* stylelint-disable-next-line declaration-no-important */
+  padding: 0 !important;
+}
+
+.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search {
+  opacity: 0.2;
+}
+
+.vs--loading .vs__spinner {
+  opacity: 1;
+}
+
+.koi_c-form-select--sm .v-select {
+  font-size: 12px;
+  line-height: 18px;
+}
+.koi_c-form-select--sm .vs__dropdown-toggle {
+  min-height: 32px;
+}
+.koi_c-form-select--sm .vs__actions {
+  padding: 0 12px;
+}
+.koi_c-form-select--sm .v-select:not(.vs--single) .vs__selected-options {
+  padding: 2px 2px 0 2px;
+}
+.koi_c-form-select--sm .v-select:not(.vs--single) .vs__selected {
+  margin: 0 2px 2px 0;
+}
+.koi_c-form-select--sm .v-select:not(.vs--single) .vs__search {
+  padding: 4px 0 6px 10px;
+}
+.koi_c-form-select--sm .v-select.vs--single .vs__selected,
+.koi_c-form-select--sm .v-select.vs--single .vs__search {
+  padding: 6px 12px;
+}
+
+.vs__dropdown-menu[data-size=sm] {
+  font-size: 12px;
+  line-height: 18px;
+}
+.vs__dropdown-menu[data-size=sm] .vs__dropdown-option,
+.vs__dropdown-menu[data-size=sm] .vs__no-options {
+  padding: 6px 12px;
+}
+
+.koi_c-form-select--md .v-select {
+  font-size: 14px;
+  line-height: 20px;
+}
+.koi_c-form-select--md .vs__dropdown-toggle {
+  min-height: 38px;
+}
+.koi_c-form-select--md .vs__actions {
+  padding: 0 16px;
+}
+.koi_c-form-select--md .v-select:not(.vs--single) .vs__selected-options {
+  padding: 4px 4px 0 4px;
+}
+.koi_c-form-select--md .v-select:not(.vs--single) .vs__selected {
+  margin: 0 4px 4px 0;
+}
+.koi_c-form-select--md .v-select:not(.vs--single) .vs__search {
+  padding: 4px 0 8px 12px;
+}
+.koi_c-form-select--md .v-select.vs--single .vs__selected,
+.koi_c-form-select--md .v-select.vs--single .vs__search {
+  padding: 8px 16px;
+}
+
+.vs__dropdown-menu[data-size=md] {
+  font-size: 14px;
+  line-height: 20px;
+}
+.vs__dropdown-menu[data-size=md] .vs__dropdown-option,
+.vs__dropdown-menu[data-size=md] .vs__no-options {
+  padding: 8px 16px;
+}
+
+.koi_c-form-select--lg .v-select {
+  font-size: 16px;
+  line-height: 22px;
+}
+.koi_c-form-select--lg .vs__dropdown-toggle {
+  min-height: 44px;
+}
+.koi_c-form-select--lg .vs__actions {
+  padding: 0 20px;
+}
+.koi_c-form-select--lg .v-select:not(.vs--single) .vs__selected-options {
+  padding: 6px 6px 0 6px;
+}
+.koi_c-form-select--lg .v-select:not(.vs--single) .vs__selected {
+  margin: 0 6px 6px 0;
+}
+.koi_c-form-select--lg .v-select:not(.vs--single) .vs__search {
+  padding: 4px 0 10px 14px;
+}
+.koi_c-form-select--lg .v-select.vs--single .vs__selected,
+.koi_c-form-select--lg .v-select.vs--single .vs__search {
+  padding: 10px 20px;
+}
+
+.vs__dropdown-menu[data-size=lg] {
+  font-size: 16px;
+  line-height: 22px;
+}
+.vs__dropdown-menu[data-size=lg] .vs__dropdown-option,
+.vs__dropdown-menu[data-size=lg] .vs__no-options {
+  padding: 10px 20px;
+}
+
+@-webkit-keyframes vSelectSpinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes vSelectSpinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+/* (c) 2020 Cofense Inc. */
+.koi_c-badge {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  padding: 0 8px;
+}
+
+.koi_c-badge--error {
+  background-color: #fbeeee;
+  border-color: #cd202c;
+  color: #8d1f1f;
+}
+
+.koi_c-badge--info {
+  background-color: #ecf4ff;
+  border-color: #006df6;
+  color: #004eaf;
+}
+
+.koi_c-badge--neutral {
+  background-color: #f8f9fa;
+  border-color: #768191;
+  color: #4a5568;
+}
+
+.koi_c-badge--success {
+  background-color: #f1f9f3;
+  border-color: #49ab62;
+  color: #347945;
+}
+
+.koi_c-badge--warning {
+  background-color: #fff4ec;
+  border-color: #f66d00;
+  color: #af4e00;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-breadcrumbs {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: flext-start;
+}
+
+.koi_c-breadcrumbs__item {
+  margin-right: 16px;
+  position: relative;
+}
+.koi_c-breadcrumbs__item:not(:last-child)::after {
+  color: #d0d4da;
+  content: "/ ";
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-button {
+  border: 1px solid transparent;
+  display: inline-block;
+  font-weight: 600;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+.koi_c-button:not(:disabled) {
+  cursor: pointer;
+}
+.koi_c-button.is-loading {
+  cursor: not-allowed;
+}
+.koi_c-button:disabled:not(.is-loading) {
+  background-color: #f8f9fa;
+  border-color: #d0d4da;
+  box-shadow: none;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+.koi_c-button:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+
+.koi_c-button__content {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.koi_c-button--sm {
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 6px 12px;
+}
+.koi_c-button--sm.koi_c-button--icon-only {
+  padding: 6px;
+}
+
+.koi_c-button--md {
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 16px;
+}
+.koi_c-button--md.koi_c-button--icon-only {
+  padding: 8px;
+}
+
+.koi_c-button--lg {
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 10px 20px;
+}
+.koi_c-button--lg.koi_c-button--icon-only {
+  padding: 10px;
+}
+
+.koi_c-button--primary {
+  background-color: #006df6;
+  border-color: #006df6;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: #ffffff;
+}
+.koi_c-button--primary .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--primary:hover:not(:disabled):not(:active):not(.is-active) {
+  background-color: #004eaf;
+  border-color: #004eaf;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #ffffff;
+}
+.koi_c-button--primary:hover:not(:disabled):not(:active):not(.is-active) .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--primary.is-active:not(:disabled), .koi_c-button--primary:active:not(:disabled) {
+  background-color: #002049;
+  border-color: #002049;
+  box-shadow: 0 0 0 transparent;
+  color: #ffffff;
+}
+.koi_c-button--primary.is-active:not(:disabled) .koi_c-icon, .koi_c-button--primary:active:not(:disabled) .koi_c-icon {
+  color: inherit;
+}
+
+.koi_c-button--secondary {
+  background-color: #ffffff;
+  border-color: #006df6;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: #006df6;
+}
+.koi_c-button--secondary .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--secondary:hover:not(:disabled):not(:active):not(.is-active) {
+  background-color: #ffffff;
+  border-color: #004eaf;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #004eaf;
+}
+.koi_c-button--secondary:hover:not(:disabled):not(:active):not(.is-active) .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--secondary.is-active:not(:disabled), .koi_c-button--secondary:active:not(:disabled) {
+  background-color: #ffffff;
+  border-color: #002049;
+  box-shadow: 0 0 0 transparent;
+  color: #002049;
+}
+.koi_c-button--secondary.is-active:not(:disabled) .koi_c-icon, .koi_c-button--secondary:active:not(:disabled) .koi_c-icon {
+  color: inherit;
+}
+
+.koi_c-button--tertiary {
+  background-color: #ffffff;
+  border-color: transparent;
+  box-shadow: none;
+  color: #006df6;
+}
+.koi_c-button--tertiary .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--tertiary:hover:not(:disabled):not(:active):not(.is-active) {
+  background-color: #ecf4ff;
+  border-color: #ecf4ff;
+  box-shadow: none;
+  color: #004eaf;
+}
+.koi_c-button--tertiary:hover:not(:disabled):not(:active):not(.is-active) .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--tertiary.is-active:not(:disabled), .koi_c-button--tertiary:active:not(:disabled) {
+  background-color: #ecf4ff;
+  border-color: #ecf4ff;
+  box-shadow: none;
+  color: #002049;
+}
+.koi_c-button--tertiary.is-active:not(:disabled) .koi_c-icon, .koi_c-button--tertiary:active:not(:disabled) .koi_c-icon {
+  color: inherit;
+}
+
+.koi_c-button--subdued {
+  background-color: #ffffff;
+  border-color: #d0d4da;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: #4a5568;
+}
+.koi_c-button--subdued .koi_c-icon {
+  color: #006df6;
+}
+.koi_c-button--subdued:hover:not(:disabled):not(:active):not(.is-active) {
+  background-color: #ffffff;
+  border-color: #006df6;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #006df6;
+}
+.koi_c-button--subdued:hover:not(:disabled):not(:active):not(.is-active) .koi_c-icon {
+  color: #006df6;
+}
+.koi_c-button--subdued.is-active:not(:disabled), .koi_c-button--subdued:active:not(:disabled) {
+  background-color: #ffffff;
+  border-color: #004eaf;
+  box-shadow: 0 0 0 transparent;
+  color: #004eaf;
+}
+.koi_c-button--subdued.is-active:not(:disabled) .koi_c-icon, .koi_c-button--subdued:active:not(:disabled) .koi_c-icon {
+  color: inherit;
+}
+
+.koi_c-button--danger {
+  background-color: #cd202c;
+  border-color: #cd202c;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: #ffffff;
+}
+.koi_c-button--danger .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--danger:hover:not(:disabled):not(:active):not(.is-active) {
+  background-color: #8d1f1f;
+  border-color: #8d1f1f;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #ffffff;
+}
+.koi_c-button--danger:hover:not(:disabled):not(:active):not(.is-active) .koi_c-icon {
+  color: inherit;
+}
+.koi_c-button--danger.is-active:not(:disabled), .koi_c-button--danger:active:not(:disabled) {
+  background-color: #3a0d0d;
+  border-color: #3a0d0d;
+  box-shadow: 0 0 0 transparent;
+  color: #ffffff;
+}
+.koi_c-button--danger.is-active:not(:disabled) .koi_c-icon, .koi_c-button--danger:active:not(:disabled) .koi_c-icon {
+  color: inherit;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-button-group {
+  display: flex;
+}
+
+.koi_c-button-group--horizontal {
+  align-items: center;
+  flex-direction: row;
+}
+.koi_c-button-group--horizontal.koi_c-button-group--xxs > .koi_c-button:not(:first-child) {
+  margin-left: 4px;
+}
+.koi_c-button-group--horizontal.koi_c-button-group--xs > .koi_c-button:not(:first-child) {
+  margin-left: 8px;
+}
+.koi_c-button-group--horizontal.koi_c-button-group--sm > .koi_c-button:not(:first-child) {
+  margin-left: 16px;
+}
+.koi_c-button-group--horizontal.koi_c-button-group--md > .koi_c-button:not(:first-child) {
+  margin-left: 24px;
+}
+
+.koi_c-button-group--vertical {
+  align-items: flex-start;
+  flex-direction: column;
+}
+.koi_c-button-group--vertical.koi_c-button-group--xxs > .koi_c-button:not(:first-child) {
+  margin-top: 4px;
+}
+.koi_c-button-group--vertical.koi_c-button-group--xs > .koi_c-button:not(:first-child) {
+  margin-top: 8px;
+}
+.koi_c-button-group--vertical.koi_c-button-group--sm > .koi_c-button:not(:first-child) {
+  margin-top: 16px;
+}
+.koi_c-button-group--vertical.koi_c-button-group--md > .koi_c-button:not(:first-child) {
+  margin-top: 24px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-caption {
+  font-weight: 600;
+}
+
+.koi_c-caption--md {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.koi_c-caption--sm {
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.koi_c-caption--dark {
+  color: #0f2538;
+}
+
+.koi_c-caption--light {
+  color: #4a5568;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-code {
+  border: 1px solid transparent;
+}
+.koi_c-code, .koi_c-code code {
+  font-family: "Source Code Pro", monospace;
+}
+
+pre.koi_c-code {
+  border-radius: 4px;
+  display: block;
+  padding: 8px 16px;
+}
+pre.koi_c-code.koi_c-code--scroll {
+  overflow: auto;
+}
+pre.koi_c-code.koi_c-code--wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+code.koi_c-code {
+  border-radius: 2px;
+  display: inline-block;
+  padding: 0 4px;
+}
+
+.koi_c-code--error {
+  background-color: #fbeeee;
+  border-color: #cd202c;
+  color: #8d1f1f;
+}
+
+.koi_c-code--success {
+  background-color: #f1f9f3;
+  border-color: #49ab62;
+  color: #347945;
+}
+
+.koi_c-code--warning {
+  background-color: #fff4ec;
+  border-color: #f66d00;
+  color: #af4e00;
+}
+
+.koi_c-code--info {
+  background-color: #ecf4ff;
+  border-color: #006df6;
+  color: #004eaf;
+}
+
+.koi_c-code--neutral {
+  background-color: #f8f9fa;
+  border-color: #768191;
+  color: #4a5568;
+}
+
+.koi_c-code--dark {
+  background-color: #4a5568;
+  border-color: #0f2538;
+  color: #ffffff;
+}
+
+.koi_c-code--md,
+.koi_c-code--md code {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.koi_c-code--sm,
+.koi_c-code--sm code {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-divider {
+  background-color: #d0d4da;
+  border: none;
+  height: 1px;
+  margin: 0;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-description-list__item + .koi_c-description-list__item {
+  margin-top: 8px;
+}
+
+.koi_c-description-list--vertical .koi_c-description-list__term,
+.koi_c-description-list--vertical .koi_c-description-list__definition {
+  width: 100%;
+}
+
+.koi_c-description-list--horizontal .koi_c-description-list__item {
+  align-items: baseline;
+  display: flex;
+}
+.koi_c-description-list--horizontal .koi_c-description-list__term {
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+.koi_c-description-list--horizontal .koi_c-description-list__definition {
+  flex-grow: 1;
+}
+
+.koi_c-description-list--borders {
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.koi_c-description-list--borders .koi_c-description-list__item {
+  background-color: #ffffff;
+}
+.koi_c-description-list--borders .koi_c-description-list__item + .koi_c-description-list__item {
+  margin-top: 0;
+}
+.koi_c-description-list--borders .koi_c-description-list__item:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.koi_c-description-list--borders .koi_c-description-list__term {
+  margin-right: 0;
+}
+.koi_c-description-list--borders.koi_c-description-list--vertical .koi_c-description-list__item {
+  padding: 8px 16px;
+}
+.koi_c-description-list--borders.koi_c-description-list--vertical .koi_c-description-list__term {
+  margin-bottom: 4px;
+}
+.koi_c-description-list--borders.koi_c-description-list--horizontal .koi_c-description-list__term,
+.koi_c-description-list--borders.koi_c-description-list--horizontal .koi_c-description-list__definition {
+  padding: 8px 16px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-dropdown-card {
+  display: inline-block;
+  position: relative;
+}
+
+.koi_c-dropdown-card__box {
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: none;
+  z-index: 100;
+}
+.koi_c-dropdown-card.is-open .koi_c-dropdown-card__box {
+  display: block;
+}
+
+.koi_c-dropdown-card__header {
+  padding: 6px 12px 0;
+}
+
+.koi_c-dropdown-card__content {
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.koi_c-dropdown-card__controls {
+  align-items: center;
+  border-top: 1px solid #d0d4da;
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 12px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form {
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-character-limit {
+  color: #4a5568;
+  display: block;
+}
+
+.koi_c-form-character-limit--over {
+  color: #8d1f1f;
+  font-weight: 600;
+}
+
+.koi_c-form-character-limit--sm {
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.koi_c-form-character-limit--md {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.koi_c-form-character-limit--lg {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-choice + .koi_c-form-choice {
+  margin-top: 8px;
+}
+
+.koi_c-form-choice__label {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.koi_c-form-choice__faux {
+  flex-shrink: 0;
+  margin-right: 8px;
+  position: relative;
+}
+
+.koi_c-form-choice__text {
+  color: #0f2538;
+}
+.is-invalid .koi_c-form-choice__text {
+  color: #8d1f1f;
+}
+.koi_c-form-choice--sm .koi_c-form-choice__text {
+  font-size: 12px;
+  line-height: 18px;
+}
+.koi_c-form-choice--md .koi_c-form-choice__text {
+  font-size: 14px;
+  line-height: 20px;
+}
+.koi_c-form-choice--lg .koi_c-form-choice__text {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.koi_c-form-choice--inline + .koi_c-form-choice--inline {
+  margin-left: 32px;
+  margin-top: 0;
+}
+
+.koi_c-form-choice__input:focus ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label {
+  cursor: not-allowed;
+}
+.koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__text {
+  color: #4a5568;
+}
+
+.koi_c-form-choice--checkbox.is-invalid .koi_c-form-choice__faux,
+.koi_c-form-choice--radio.is-invalid .koi_c-form-choice__faux {
+  border-color: #cd202c;
+}
+
+.koi_c-form-choice--toggle.is-invalid .koi_c-form-choice__faux {
+  box-shadow: 0 0 0 1px #cd202c;
+}
+
+.koi_c-form-choice--checkbox .koi_c-form-choice__faux {
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 2px;
+}
+.koi_c-form-choice--checkbox .koi_c-form-choice__faux::before {
+  border-bottom: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  content: "";
+  display: none;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, -70%, 0) rotate(-45deg);
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--sm .koi_c-form-choice__faux {
+  height: 16px;
+  width: 16px;
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--sm .koi_c-form-choice__faux::before {
+  height: 4px;
+  width: 8px;
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--md .koi_c-form-choice__faux {
+  height: 18px;
+  width: 18px;
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--md .koi_c-form-choice__faux::before {
+  height: 5px;
+  width: 10px;
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--lg .koi_c-form-choice__faux {
+  height: 20px;
+  width: 20px;
+}
+.koi_c-form-choice--checkbox.koi_c-form-choice--lg .koi_c-form-choice__faux::before {
+  height: 6px;
+  width: 12px;
+}
+.koi_c-form-choice--checkbox .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #006df6;
+  border-color: #006df6;
+}
+.koi_c-form-choice--checkbox .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::before {
+  display: block;
+}
+.koi_c-form-choice--checkbox .koi_c-form-choice__input:checked:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #d0d4da;
+  border-color: #d0d4da;
+}
+.koi_c-form-choice--checkbox .koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #f8f9fa;
+  border-color: #d0d4da;
+}
+
+.koi_c-form-choice--radio .koi_c-form-choice__faux {
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 999px;
+}
+.koi_c-form-choice--radio .koi_c-form-choice__faux::before {
+  background-color: #ffffff;
+  border-radius: 999px;
+  content: "";
+  display: none;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.koi_c-form-choice--radio.koi_c-form-choice--sm .koi_c-form-choice__faux {
+  height: 16px;
+  width: 16px;
+}
+.koi_c-form-choice--radio.koi_c-form-choice--sm .koi_c-form-choice__faux::before {
+  height: 6px;
+  width: 6px;
+}
+.koi_c-form-choice--radio.koi_c-form-choice--md .koi_c-form-choice__faux {
+  height: 18px;
+  width: 18px;
+}
+.koi_c-form-choice--radio.koi_c-form-choice--md .koi_c-form-choice__faux::before {
+  height: 8px;
+  width: 8px;
+}
+.koi_c-form-choice--radio.koi_c-form-choice--lg .koi_c-form-choice__faux {
+  height: 20px;
+  width: 20px;
+}
+.koi_c-form-choice--radio.koi_c-form-choice--lg .koi_c-form-choice__faux::before {
+  height: 10px;
+  width: 10px;
+}
+.koi_c-form-choice--radio .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #006df6;
+  border-color: #006df6;
+}
+.koi_c-form-choice--radio .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::before {
+  display: block;
+}
+.koi_c-form-choice--radio .koi_c-form-choice__input:checked:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #d0d4da;
+  border-color: #d0d4da;
+}
+.koi_c-form-choice--radio .koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #f8f9fa;
+  border-color: #d0d4da;
+}
+
+.koi_c-form-choice--toggle .koi_c-form-choice__faux {
+  background-color: #d0d4da;
+  border-radius: 999px;
+  position: relative;
+}
+.koi_c-form-choice--toggle .koi_c-form-choice__faux::after {
+  background-color: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  content: "";
+  left: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--sm .koi_c-form-choice__faux {
+  height: 18px;
+  width: 36px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--sm .koi_c-form-choice__faux::after {
+  height: 14px;
+  width: 14px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--md .koi_c-form-choice__faux {
+  height: 20px;
+  width: 40px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--md .koi_c-form-choice__faux::after {
+  height: 16px;
+  width: 16px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--lg .koi_c-form-choice__faux {
+  height: 22px;
+  width: 44px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--lg .koi_c-form-choice__faux::after {
+  height: 18px;
+  width: 18px;
+}
+.koi_c-form-choice--toggle .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after {
+  left: auto;
+  right: 2px;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--neutral .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #006df6;
+  border-color: #006df6;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--neutral .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after {
+  background-color: #ffffff;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--positive .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #49ab62;
+  border-color: #49ab62;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--positive .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after {
+  background-color: #ffffff;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--negative .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #cd202c;
+  border-color: #cd202c;
+}
+.koi_c-form-choice--toggle.koi_c-form-choice--negative .koi_c-form-choice__input:checked ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after {
+  background-color: #ffffff;
+}
+.koi_c-form-choice--toggle .koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux,
+.koi_c-form-choice--toggle .koi_c-form-choice__input:checked:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux {
+  background-color: #d0d4da;
+}
+.koi_c-form-choice--toggle .koi_c-form-choice__input:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after,
+.koi_c-form-choice--toggle .koi_c-form-choice__input:checked:disabled ~ .koi_c-form-choice__label .koi_c-form-choice__faux::after {
+  box-shadow: none;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-choice-group {
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.koi_c-form-choice-group__item {
+  padding: 2px;
+  position: relative;
+}
+.koi_c-form-choice-group__item:not(:first-child) {
+  padding-left: 3px;
+}
+.koi_c-form-choice-group__item:not(:first-child)::before {
+  background-color: #d0d4da;
+  bottom: 2px;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 2px;
+  width: 1px;
+}
+
+.koi_c-form-choice-group__button {
+  align-items: center;
+  border-radius: 2px;
+  color: #006df6;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+.koi_c-form-choice-group__button:hover {
+  background-color: #ecf4ff;
+}
+
+.koi_c-form-choice-group__label {
+  font-weight: 600;
+}
+
+.koi_c-form-choice-group__input:disabled ~ .koi_c-form-choice-group__button {
+  background-color: #f8f9fa;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+
+.koi_c-form-choice-group__input:checked ~ .koi_c-form-choice-group__button {
+  background-color: #006df6;
+  color: #ffffff;
+}
+
+.koi_c-form-choice-group__input:focus ~ .koi_c-form-choice-group__button {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-form-choice-group--sm .koi_c-form-choice-group__button {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 4px 10px;
+}
+
+.koi_c-form-choice-group--md .koi_c-form-choice-group__button {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 6px 14px;
+}
+
+.koi_c-form-choice-group--lg .koi_c-form-choice-group__button {
+  font-size: 16px;
+  line-height: 22px;
+  padding: 8px 18px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-control {
+  position: relative;
+}
+
+.koi_c-form-control__prefix-icon,
+.koi_c-form-control__suffix-icon {
+  color: #768191;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.koi_c-form-control--inline {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.koi_c-form-control--sm.has-prefix-icon .koi_c-form-input {
+  padding-left: 34px;
+}
+.koi_c-form-control--sm.has-suffix-icon .koi_c-form-input {
+  padding-right: 34px;
+}
+.koi_c-form-control--sm .koi_c-form-control__prefix-icon {
+  left: 12px;
+}
+.koi_c-form-control--sm .koi_c-form-control__suffix-icon {
+  right: 12px;
+}
+
+.koi_c-form-control--md.has-prefix-icon .koi_c-form-input {
+  padding-left: 40px;
+}
+.koi_c-form-control--md.has-suffix-icon .koi_c-form-input {
+  padding-right: 40px;
+}
+.koi_c-form-control--md .koi_c-form-control__prefix-icon {
+  left: 16px;
+}
+.koi_c-form-control--md .koi_c-form-control__suffix-icon {
+  right: 16px;
+}
+
+.koi_c-form-control--lg.has-prefix-icon .koi_c-form-input {
+  padding-left: 46px;
+}
+.koi_c-form-control--lg.has-suffix-icon .koi_c-form-input {
+  padding-right: 46px;
+}
+.koi_c-form-control--lg .koi_c-form-control__prefix-icon {
+  left: 20px;
+}
+.koi_c-form-control--lg .koi_c-form-control__suffix-icon {
+  right: 20px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-element {
+  position: relative;
+}
+
+.koi_c-form-element--inline {
+  align-items: center;
+  display: flex;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-errors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.koi_c-form-errors__message {
+  color: #8d1f1f;
+  font-weight: 600;
+  position: relative;
+}
+.koi_c-form-errors__message::before {
+  background-color: #efb7b7;
+  border-radius: 999px;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.koi_c-form-errors--sm .koi_c-form-errors__message {
+  font-size: 10px;
+  line-height: 16px;
+  padding-left: 10px;
+}
+.koi_c-form-errors--sm .koi_c-form-errors__message::before {
+  height: 4px;
+  width: 4px;
+}
+
+.koi_c-form-errors--md .koi_c-form-errors__message {
+  font-size: 12px;
+  line-height: 18px;
+  padding-left: 14px;
+}
+.koi_c-form-errors--md .koi_c-form-errors__message::before {
+  height: 6px;
+  width: 6px;
+}
+
+.koi_c-form-errors--lg .koi_c-form-errors__message {
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 18px;
+}
+.koi_c-form-errors--lg .koi_c-form-errors__message::before {
+  height: 8px;
+  width: 8px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-input {
+  -webkit-appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  color: #0f2538;
+  display: block;
+  margin: 0;
+  transition: border-color 0.25s ease;
+  width: 100%;
+}
+.koi_c-form-input:focus {
+  border-color: #006df6;
+  outline: none;
+}
+.koi_c-form-input:hover:not(:disabled):not(:focus) {
+  border-color: #768191;
+}
+.koi_c-form-input:disabled {
+  background-color: #f8f9fa;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+.koi_c-form-input::placeholder {
+  color: #768191;
+  font-style: italic;
+  opacity: 1;
+}
+.koi_c-form-input.is-invalid {
+  border-color: #cd202c;
+  color: #8d1f1f;
+}
+.koi_c-form-input.is-valid {
+  border-color: #49ab62;
+  color: #347945;
+}
+
+.koi_c-form-input--sm {
+  font-size: 12px;
+  line-height: 18px;
+  min-height: 32px;
+  padding: 6px 12px;
+}
+
+.koi_c-form-input--md {
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 38px;
+  padding: 8px 16px;
+}
+
+.koi_c-form-input--lg {
+  font-size: 16px;
+  line-height: 22px;
+  min-height: 44px;
+  padding: 10px 20px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-label {
+  color: #4a5568;
+  display: block;
+  font-weight: 600;
+}
+
+.koi_c-form-label--required {
+  position: relative;
+}
+.koi_c-form-label--required::after {
+  background-color: #cd202c;
+  border-radius: 999px;
+  content: "";
+  display: inline-block;
+  position: relative;
+  transform: translate(50%, 0);
+  vertical-align: top;
+}
+
+.koi_c-form-label--sm {
+  font-size: 10px;
+  line-height: 16px;
+}
+.koi_c-form-label--sm.koi_c-form-label--required::after {
+  height: 4px;
+  width: 4px;
+}
+
+.koi_c-form-label--md {
+  font-size: 12px;
+  line-height: 18px;
+}
+.koi_c-form-label--md.koi_c-form-label--required::after {
+  height: 6px;
+  width: 6px;
+}
+
+.koi_c-form-label--lg {
+  font-size: 14px;
+  line-height: 20px;
+}
+.koi_c-form-label--lg.koi_c-form-label--required::after {
+  height: 8px;
+  width: 8px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-form-textarea {
+  -webkit-appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  color: #0f2538;
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  min-height: 128px;
+  min-width: 100%;
+  overflow: auto;
+  resize: vertical;
+  transition: border-color 0.25s ease;
+  width: 100%;
+}
+.koi_c-form-textarea:focus {
+  border-color: #006df6;
+  outline: none;
+}
+.koi_c-form-textarea:hover:not(:disabled):not(:focus) {
+  border-color: #768191;
+}
+.koi_c-form-textarea:disabled {
+  background-color: #f8f9fa;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+.koi_c-form-textarea::placeholder {
+  color: #768191;
+  font-style: italic;
+  opacity: 1;
+}
+.koi_c-form-textarea.is-invalid {
+  border-color: #cd202c;
+  color: #8d1f1f;
+}
+.koi_c-form-textarea.is-valid {
+  border-color: #49ab62;
+  color: #347945;
+}
+
+.koi_c-form-textarea--sm {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 12px;
+}
+
+.koi_c-form-textarea--md {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 16px;
+}
+
+.koi_c-form-textarea--lg {
+  font-size: 16px;
+  line-height: 22px;
+  padding: 20px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-grid {
+  display: flex;
+}
+
+.koi_c-grid--row {
+  flex-direction: row;
+}
+
+.koi_c-grid--column {
+  flex-direction: column;
+}
+
+.koi_c-grid--wrap {
+  flex-wrap: wrap;
+}
+
+.koi_c-grid--no-wrap {
+  flex-wrap: nowrap;
+}
+
+.koi_c-grid--start {
+  justify-content: flex-start;
+}
+
+.koi_c-grid--center {
+  justify-content: center;
+}
+
+.koi_c-grid--end {
+  justify-content: flex-end;
+}
+
+.koi_c-grid--around {
+  justify-content: space-around;
+}
+
+.koi_c-grid--between {
+  justify-content: space-between;
+}
+
+.koi_c-grid--top {
+  align-items: flex-start;
+}
+
+.koi_c-grid--middle {
+  align-items: center;
+}
+
+.koi_c-grid--bottom {
+  align-items: flex-end;
+}
+
+.koi_c-grid--stretch {
+  align-items: stretch;
+}
+
+.koi_c-grid--dividers > .koi_c-grid__column:not(:last-child) {
+  border-right: 1px solid #d0d4da;
+}
+
+.koi_c-grid--gutter-sm {
+  margin-left: -8px;
+  margin-right: -8px;
+  width: auto;
+}
+.koi_c-grid--gutter-sm > .koi_c-grid__column {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.koi_c-grid--gutter-md {
+  margin-left: -16px;
+  margin-right: -16px;
+  width: auto;
+}
+.koi_c-grid--gutter-md > .koi_c-grid__column {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.koi_c-grid--gutter-lg {
+  margin-left: -24px;
+  margin-right: -24px;
+  width: auto;
+}
+.koi_c-grid--gutter-lg > .koi_c-grid__column {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.koi_c-grid__column {
+  width: auto;
+}
+
+.koi_c-grid__column--auto {
+  align-self: auto;
+}
+
+.koi_c-grid__column--top {
+  align-self: flex-start;
+}
+
+.koi_c-grid__column--middle {
+  align-self: center;
+}
+
+.koi_c-grid__column--bottom {
+  align-self: flex-end;
+}
+
+.koi_c-grid__column--stretch {
+  align-self: stretch;
+}
+
+.koi_c-grid__column--grow {
+  flex-grow: 1;
+}
+
+.koi_c-grid__column--shrink {
+  flex-shrink: 1;
+}
+
+.koi_c-grid__column--no-shrink {
+  flex-shrink: 0;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-headline {
+  font-weight: 800;
+}
+.koi_c-headline > .koi_c-icon {
+  vertical-align: top;
+}
+
+.koi_c-headline--xl {
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.koi_c-headline--lg {
+  font-size: 38px;
+  line-height: 44px;
+}
+
+.koi_c-headline--md {
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.koi_c-headline--sm {
+  font-size: 30px;
+  line-height: 36px;
+}
+
+.koi_c-headline--xs {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.koi_c-headline--xxs {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.koi_c-headline--dark {
+  color: #0f2538;
+}
+
+.koi_c-headline--light {
+  color: #4a5568;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-icon {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.koi_c-icon--info {
+  color: #006df6;
+}
+
+.koi_c-icon--success {
+  color: #49ab62;
+}
+
+.koi_c-icon--error {
+  color: #cd202c;
+}
+
+.koi_c-icon--warning {
+  color: #f66d00;
+}
+
+.koi_c-icon--neutral {
+  color: #768191;
+}
+
+.koi_c-icon--button-sm {
+  font-size: 12px;
+  height: 18px;
+  width: 18px;
+}
+
+.koi_c-icon--button-md {
+  font-size: 14px;
+  height: 20px;
+  width: 20px;
+}
+
+.koi_c-icon--button-lg {
+  font-size: 16px;
+  height: 22px;
+  width: 22px;
+}
+
+.koi_c-icon--form-sm {
+  font-size: 12px;
+  height: 18px;
+  width: 18px;
+}
+
+.koi_c-icon--form-md {
+  font-size: 14px;
+  height: 20px;
+  width: 20px;
+}
+
+.koi_c-icon--form-lg {
+  font-size: 16px;
+  height: 22px;
+  width: 22px;
+}
+
+.koi_c-icon--text-sm {
+  font-size: 14px;
+  height: 20px;
+  width: 20px;
+}
+
+.koi_c-icon--text-md {
+  font-size: 16px;
+  height: 22px;
+  width: 22px;
+}
+
+.koi_c-icon--title-sm {
+  font-size: 16px;
+  height: 22px;
+  width: 22px;
+}
+
+.koi_c-icon--title-md {
+  font-size: 20px;
+  height: 26px;
+  width: 26px;
+}
+
+.koi_c-icon--headline-xxs {
+  font-size: 24px;
+  height: 30px;
+  width: 30px;
+}
+
+.koi_c-icon--headline-xs {
+  font-size: 28px;
+  height: 34px;
+  width: 34px;
+}
+
+.koi_c-icon--headline-sm {
+  font-size: 32px;
+  height: 38px;
+  width: 38px;
+}
+
+.koi_c-icon--headline-md {
+  font-size: 36px;
+  height: 42px;
+  width: 42px;
+}
+
+.koi_c-icon--headline-lg {
+  font-size: 40px;
+  height: 46px;
+  width: 46px;
+}
+
+.koi_c-icon--headline-xl {
+  font-size: 44px;
+  height: 50px;
+  width: 50px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-caption a,
+.koi_c-caption button,
+.koi_c-headline a,
+.koi_c-headline button,
+.koi_c-text a,
+.koi_c-text button,
+.koi_c-title a,
+.koi_c-title button {
+  cursor: pointer;
+  font-weight: inherit;
+  transition: color 0.25s ease;
+  vertical-align: baseline;
+}
+.koi_c-caption a:hover,
+.koi_c-caption button:hover,
+.koi_c-headline a:hover,
+.koi_c-headline button:hover,
+.koi_c-text a:hover,
+.koi_c-text button:hover,
+.koi_c-title a:hover,
+.koi_c-title button:hover {
+  color: #004eaf;
+}
+.koi_c-caption a:active,
+.koi_c-caption button:active,
+.koi_c-headline a:active,
+.koi_c-headline button:active,
+.koi_c-text a:active,
+.koi_c-text button:active,
+.koi_c-title a:active,
+.koi_c-title button:active {
+  color: #002049;
+}
+.koi_c-caption a:focus,
+.koi_c-caption button:focus,
+.koi_c-headline a:focus,
+.koi_c-headline button:focus,
+.koi_c-text a:focus,
+.koi_c-text button:focus,
+.koi_c-title a:focus,
+.koi_c-title button:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+
+.koi_c-caption a,
+.koi_c-caption button,
+.koi_c-text a,
+.koi_c-text button {
+  color: #006df6;
+  text-decoration: underline;
+}
+
+.koi_c-headline a,
+.koi_c-headline button,
+.koi_c-title a,
+.koi_c-title button {
+  color: inherit;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-logomark, .koi_c-logomark > svg {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.koi_c-logomark--xs {
+  height: 32px;
+  width: 32px;
+}
+
+.koi_c-logomark--sm {
+  height: 48px;
+  width: 48px;
+}
+
+.koi_c-logomark--md {
+  height: 64px;
+  width: 64px;
+}
+
+.koi_c-logomark--lg {
+  height: 80px;
+  width: 80px;
+}
+
+.koi_c-logomark--xl {
+  height: 96px;
+  width: 96px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-logotype, .koi_c-logotype > svg {
+  display: inline-block;
+  vertical-align: top;
+}
+.koi_c-logotype:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-logotype--sm {
+  height: 40px;
+  width: 105px;
+}
+
+.koi_c-logotype--md {
+  height: 60px;
+  width: 157px;
+}
+
+.koi_c-logotype--lg {
+  height: 80px;
+  width: 210px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-progress__value {
+  background: #f8f9fa;
+  border-radius: 999px;
+  position: relative;
+}
+
+.koi_c-progress__meter {
+  border-radius: 999px;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.25s linear;
+  width: 0;
+}
+.koi_c-progress__meter::after {
+  border-radius: 999px;
+  bottom: 0;
+  content: "";
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.koi_c-progress--sm .koi_c-progress__value {
+  box-shadow: 0 0 0 2px #f8f9fa;
+  height: 8px;
+}
+.koi_c-progress--sm .koi_c-progress__meter::after {
+  animation: koi_a-progress-move-sm 1.5s linear infinite;
+  background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 24px 24px;
+}
+
+.koi_c-progress--md .koi_c-progress__value {
+  box-shadow: 0 0 0 4px #f8f9fa;
+  height: 12px;
+}
+.koi_c-progress--md .koi_c-progress__meter::after {
+  animation: koi_a-progress-move-md 1.5s linear infinite;
+  background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 30px 30px;
+}
+
+.koi_c-progress--lg .koi_c-progress__value {
+  box-shadow: 0 0 0 6px #f8f9fa;
+  height: 16px;
+}
+.koi_c-progress--lg .koi_c-progress__meter::after {
+  animation: koi_a-progress-move-lg 1.5s linear infinite;
+  background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 36px 36px;
+}
+
+.koi_c-progress--info .koi_c-progress__meter {
+  background-color: #006df6;
+}
+
+.koi_c-progress--success .koi_c-progress__meter {
+  background-color: #49ab62;
+}
+
+.koi_c-progress--warning .koi_c-progress__meter {
+  background-color: #f66d00;
+}
+
+.koi_c-progress--error .koi_c-progress__meter {
+  background-color: #cd202c;
+}
+
+.koi_c-progress--neutral .koi_c-progress__meter {
+  background-color: #768191;
+}
+
+@keyframes koi_a-progress-move-sm {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 0;
+  }
+}
+@keyframes koi_a-progress-move-md {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 30px 0;
+  }
+}
+@keyframes koi_a-progress-move-lg {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 36px 0;
+  }
+}
+/* (c) 2020 Cofense Inc. */
+.koi_c-segment {
+  background: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 6px;
+  display: block;
+  padding: 24px;
+  position: relative;
+  text-decoration: none;
+}
+
+.koi_c-segment__overlay {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: inherit;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.koi_c-segment__overlay--bottom {
+  align-items: flex-end;
+  padding-bottom: 96px;
+}
+
+.koi_c-segment__overlay--middle {
+  align-items: center;
+}
+
+.koi_c-segment__overlay--top {
+  align-items: flex-start;
+  padding-top: 96px;
+}
+
+/* (c) 2022 Cofense Inc. */
+.koi_c-skeleton {
+  border-radius: 6px;
+  position: relative;
+  width: 100%;
+  z-index: 0;
+}
+
+.koi_c-skeleton--border {
+  border: 1px solid #d0d4da;
+}
+
+.koi_c-skeleton--padding-xs {
+  padding: 8px;
+}
+
+.koi_c-skeleton--padding-sm {
+  padding: 16px;
+}
+
+.koi_c-skeleton--padding-md {
+  padding: 24px;
+}
+
+.koi_c-skeleton__animation {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+.koi_c-skeleton__animation::after {
+  animation: koi_a-skeleton-wave 1s ease-in-out infinite;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.001) 0%, rgba(255, 255, 255, 0.5) 33%, rgba(255, 255, 255, 0.5) 66%, rgba(255, 255, 255, 0.001) 100%);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 200;
+}
+
+.koi_c-skeleton__item--light {
+  background-color: #eceef0;
+}
+
+.koi_c-skeleton__item--dark {
+  background-color: #d2d6dc;
+}
+
+.koi_c-skeleton__item--circle {
+  border-radius: 999px;
+}
+
+.koi_c-skeleton__item--rectangle {
+  border-radius: 4px;
+}
+
+@keyframes koi_a-skeleton-wave {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+/* (c) 2020 Cofense Inc. */
+.koi_c-spinner {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.koi_c-spinner__circle {
+  animation: koi_a-spin 0.8s infinite linear;
+  border-color: transparent;
+  border-radius: 999px;
+  border-style: solid;
+  transform: translateZ(0);
+}
+
+.koi_c-spinner--sm .koi_c-spinner__circle {
+  border-width: 2px;
+  height: 16px;
+  width: 16px;
+}
+
+.koi_c-spinner--md .koi_c-spinner__circle {
+  border-width: 4px;
+  height: 32px;
+  width: 32px;
+}
+
+.koi_c-spinner--lg .koi_c-spinner__circle {
+  border-width: 6px;
+  height: 48px;
+  width: 48px;
+}
+
+.koi_c-spinner--info .koi_c-spinner__circle {
+  border-color: #ecf4ff;
+  border-left-color: #006df6;
+}
+
+.koi_c-spinner--success .koi_c-spinner__circle {
+  border-color: #f1f9f3;
+  border-left-color: #49ab62;
+}
+
+.koi_c-spinner--warning .koi_c-spinner__circle {
+  border-color: #fff4ec;
+  border-left-color: #f66d00;
+}
+
+.koi_c-spinner--error .koi_c-spinner__circle {
+  border-color: #fbeeee;
+  border-left-color: #cd202c;
+}
+
+.koi_c-spinner--neutral .koi_c-spinner__circle {
+  border-color: #f8f9fa;
+  border-left-color: #768191;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-table {
+  max-width: 100%;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.koi_c-table__native {
+  background-color: #ffffff;
+  border-collapse: collapse;
+  max-width: 100%;
+  width: 100%;
+}
+
+.koi_c-table__overlay {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: inherit;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.koi_c-table__overlay--bottom {
+  align-items: flex-end;
+  padding-bottom: 96px;
+}
+
+.koi_c-table__overlay--middle {
+  align-items: center;
+}
+
+.koi_c-table__overlay--top {
+  align-items: flex-start;
+  padding-top: 96px;
+}
+
+.koi_c-table__row:nth-of-type(even) {
+  background-color: #f8f9fa;
+}
+
+.koi_c-table__heading,
+.koi_c-table__cell {
+  text-align: left;
+}
+.koi_c-table__native--compact .koi_c-table__heading,
+.koi_c-table__native--compact .koi_c-table__cell {
+  padding: 4px 8px;
+}
+.koi_c-table__native--normal .koi_c-table__heading,
+.koi_c-table__native--normal .koi_c-table__cell {
+  padding: 8px 16px;
+}
+.koi_c-table__heading .koi_c-text,
+.koi_c-table__cell .koi_c-text {
+  color: inherit;
+}
+.koi_c-table__heading .koi_c-caption,
+.koi_c-table__cell .koi_c-caption {
+  display: block;
+}
+
+.koi_c-table__heading {
+  background-color: #ffffff;
+  box-shadow: inset 0 -2px 0 0 #006df6;
+  position: sticky;
+  top: 0;
+  vertical-align: bottom;
+  z-index: 2;
+}
+
+.koi_c-table__cell {
+  vertical-align: middle;
+}
+
+.koi_c-table__sort {
+  color: #4a5568;
+  cursor: pointer;
+  display: block;
+}
+.koi_c-table__sort:hover, .koi_c-table__sort.is-active {
+  color: #0f2538;
+}
+.koi_c-table__sort:hover .koi_c-icon, .koi_c-table__sort.is-active .koi_c-icon {
+  color: inherit;
+}
+.koi_c-table__sort .koi_c-icon {
+  color: inherit;
+  margin-left: 4px;
+  transition: color 0.25s ease;
+}
+
+.koi_c-table__sort-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.koi_c-table--borders {
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+}
+.koi_c-table--borders .koi_c-table__heading {
+  background-color: #f8f9fa;
+  box-shadow: inset 0 -1px 0 0 #d0d4da;
+}
+
+/* (c) 2022 Cofense Inc. */
+.koi_c-text {
+  font-weight: 400;
+}
+.koi_c-text b,
+.koi_c-text strong {
+  font-weight: 600;
+}
+.koi_c-text em,
+.koi_c-text i {
+  font-style: italic;
+}
+.koi_c-text p + p {
+  margin-top: 16px;
+}
+
+.koi_c-text--md {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.koi_c-text--sm {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.koi_c-text--dark {
+  color: #0f2538;
+}
+
+.koi_c-text--light {
+  color: #4a5568;
+}
+
+.koi_c-text--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.koi_c-text--truncate__link {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+
+.koi_c-text--lowercase {
+  text-transform: lowercase;
+}
+
+.koi_c-text--uppercase {
+  text-transform: uppercase;
+}
+
+.koi_c-text--capitalize {
+  text-transform: capitalize;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-title {
+  display: block;
+  font-weight: 800;
+}
+.koi_c-title > .koi_c-icon {
+  vertical-align: top;
+}
+
+.koi_c-title--required {
+  position: relative;
+}
+.koi_c-title--required::after {
+  background-color: #cd202c;
+  border-radius: 999px;
+  content: "";
+  display: inline-block;
+  position: relative;
+  transform: translate(50%, 0);
+  vertical-align: top;
+}
+
+.koi_c-title--md {
+  font-size: 18px;
+  line-height: 24px;
+}
+.koi_c-title--md.koi_c-title--required::after {
+  height: 8px;
+  width: 8px;
+}
+
+.koi_c-title--sm {
+  font-size: 16px;
+  line-height: 22px;
+}
+.koi_c-title--sm.koi_c-title--required::after {
+  height: 6px;
+  width: 6px;
+}
+
+.koi_c-title--dark {
+  color: #0f2538;
+}
+
+.koi_c-title--light {
+  color: #4a5568;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-view {
+  background-color: #f8f9fa;
+  display: block;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.koi_c-view--xs {
+  max-width: 900px;
+}
+
+.koi_c-view--sm {
+  max-width: 1000px;
+}
+
+.koi_c-view--md {
+  max-width: 1100px;
+}
+
+.koi_c-view--lg {
+  max-width: 1200px;
+}
+
+.koi_c-view--xl {
+  max-width: 1300px;
+}
+
+.koi_c-view--full {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* (c) 2022 Cofense Inc. */
+.koi_c-app {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  position: relative;
+}
+
+#skip-to-link {
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: #000000;
+  left: 0;
+  padding: 8px 16px;
+  position: absolute;
+  top: 0;
+  z-index: 5000;
+}
+#skip-to-link:focus {
+  outline: 1px solid #006df6;
+}
+
+.koi_c-app__header {
+  background: #ffffff;
+  border-bottom: 1px solid #d0d4da;
+  height: 57px;
+  left: 0;
+  padding: 8px 16px 8px 14px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.koi_c-app__header-groups {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.koi_c-app__header-group {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.koi_c-app__header-group--left,
+.koi_c-app__header-group--right {
+  flex-shrink: 0;
+}
+
+.koi_c-app__header-group--center {
+  flex-grow: 1;
+}
+
+.koi_c-app__stage {
+  position: relative;
+}
+.koi_c-app.has-header .koi_c-app__stage {
+  padding-top: 57px;
+}
+.koi_c-app.has-sidebar .koi_c-app__stage {
+  padding-left: 225px;
+}
+.koi_c-app.has-sidebar.is-collapsed .koi_c-app__stage {
+  padding-left: 69px;
+}
+
+.koi_c-app__sidebar {
+  background: #ffffff;
+  border-right: 1px solid #d0d4da;
+  bottom: 68px;
+  left: 0;
+  position: fixed;
+  top: 57px;
+  width: 225px;
+  z-index: 1;
+}
+.koi_c-app.has-sidebar.is-collapsed .koi_c-app__sidebar {
+  width: 69px;
+}
+
+.koi_c-app__sidebar-content {
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.koi_c-app__collapse {
+  background: #ffffff;
+  border-right: 1px solid #d0d4da;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 16px;
+  position: fixed;
+  right: 0;
+  width: 225px;
+}
+.koi_c-app.has-sidebar.is-collapsed .koi_c-app__collapse {
+  width: 69px;
+}
+.koi_c-app__collapse::before {
+  background-color: #d0d4da;
+  content: "";
+  height: 1px;
+  left: 16px;
+  position: absolute;
+  right: 16px;
+  top: 0;
+}
+
+.koi_c-app__collapse-button {
+  border-radius: 4px;
+  color: #4a5568;
+  cursor: pointer;
+  display: flex;
+  padding: 8px;
+  transition: background-color 0.2s ease, color 0.25s ease;
+  width: 100%;
+}
+.koi_c-app__collapse-button:hover {
+  background-color: #ecf4ff;
+  color: #004eaf;
+}
+.koi_c-app__collapse-button:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+
+.koi_c-app__collapse-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  margin-left: 8px;
+}
+
+.koi_c-app__content {
+  background-color: #f8f9fa;
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: calc(100vh - 57px);
+  min-width: 1075px;
+  position: relative;
+  z-index: 1;
+}
+.koi_c-app__content > * {
+  width: 100%;
+}
+.koi_c-app.is-collapsed .koi_c-app__content {
+  min-width: 1231px;
+}
+
+.koi_c-app__view {
+  flex-grow: 1;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-banner {
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  display: flex;
+  padding: 8px 16px;
+}
+
+.koi_c-banner__icon,
+.koi_c-banner__close {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.koi_c-banner__icon {
+  background-color: #ffffff;
+  border-radius: 999px;
+  margin-right: 16px;
+}
+
+.koi_c-banner__close {
+  color: #768191;
+  cursor: pointer;
+  margin-left: 24px;
+  transition: color 0.25s ease;
+}
+.koi_c-banner__close:hover {
+  color: #0f2538;
+}
+
+.koi_c-banner__message {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+}
+
+.koi_c-banner__text {
+  margin-right: 24px;
+}
+
+.koi_c-banner__cta {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.koi_c-banner--info {
+  background-color: #ecf4ff;
+  border-bottom-color: #a9cfff;
+}
+.koi_c-banner--info .koi_c-banner__icon {
+  box-shadow: 0 0 0 2px #a9cfff;
+  color: #006df6;
+}
+.koi_c-banner--info .koi_c-banner__text {
+  color: #004eaf;
+}
+.koi_c-banner--info .koi_c-banner__cta,
+.koi_c-banner--info .koi_c-banner__text a {
+  color: #004eaf;
+}
+.koi_c-banner--info .koi_c-banner__cta:hover,
+.koi_c-banner--info .koi_c-banner__text a:hover {
+  color: #002049;
+}
+.koi_c-banner--info .koi_c-banner__cta:focus,
+.koi_c-banner--info .koi_c-banner__text a:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+.koi_c-banner--info .koi_c-banner__close:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-banner--error {
+  background-color: #fbeeee;
+  border-bottom-color: #efb7b7;
+}
+.koi_c-banner--error .koi_c-banner__icon {
+  box-shadow: 0 0 0 2px #efb7b7;
+  color: #cd202c;
+}
+.koi_c-banner--error .koi_c-banner__text {
+  color: #8d1f1f;
+}
+.koi_c-banner--error .koi_c-banner__cta,
+.koi_c-banner--error .koi_c-banner__text a {
+  color: #8d1f1f;
+}
+.koi_c-banner--error .koi_c-banner__cta:hover,
+.koi_c-banner--error .koi_c-banner__text a:hover {
+  color: #3a0d0d;
+}
+.koi_c-banner--error .koi_c-banner__cta:focus,
+.koi_c-banner--error .koi_c-banner__text a:focus {
+  outline: 1px solid #cd202c;
+  outline-offset: 4px;
+}
+.koi_c-banner--error .koi_c-banner__close:focus {
+  outline: 1px solid #cd202c;
+  outline-offset: 4px;
+}
+
+.koi_c-banner--success {
+  background-color: #f1f9f3;
+  border-bottom-color: #c2e5cb;
+}
+.koi_c-banner--success .koi_c-banner__icon {
+  box-shadow: 0 0 0 2px #c2e5cb;
+  color: #49ab62;
+}
+.koi_c-banner--success .koi_c-banner__text {
+  color: #347945;
+}
+.koi_c-banner--success .koi_c-banner__cta,
+.koi_c-banner--success .koi_c-banner__text a {
+  color: #347945;
+}
+.koi_c-banner--success .koi_c-banner__cta:hover,
+.koi_c-banner--success .koi_c-banner__text a:hover {
+  color: #15321d;
+}
+.koi_c-banner--success .koi_c-banner__cta:focus,
+.koi_c-banner--success .koi_c-banner__text a:focus {
+  outline: 1px solid #49ab62;
+  outline-offset: 4px;
+}
+.koi_c-banner--success .koi_c-banner__close:focus {
+  outline: 1px solid #49ab62;
+  outline-offset: 4px;
+}
+
+.koi_c-banner--warning {
+  background-color: #fff4ec;
+  border-bottom-color: #ffcfa9;
+}
+.koi_c-banner--warning .koi_c-banner__icon {
+  box-shadow: 0 0 0 2px #ffcfa9;
+  color: #f66d00;
+}
+.koi_c-banner--warning .koi_c-banner__text {
+  color: #af4e00;
+}
+.koi_c-banner--warning .koi_c-banner__cta,
+.koi_c-banner--warning .koi_c-banner__text a {
+  color: #af4e00;
+}
+.koi_c-banner--warning .koi_c-banner__cta:hover,
+.koi_c-banner--warning .koi_c-banner__text a:hover {
+  color: #492000;
+}
+.koi_c-banner--warning .koi_c-banner__cta:focus,
+.koi_c-banner--warning .koi_c-banner__text a:focus {
+  outline: 1px solid #f66d00;
+  outline-offset: 4px;
+}
+.koi_c-banner--warning .koi_c-banner__close:focus {
+  outline: 1px solid #f66d00;
+  outline-offset: 4px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-banners {
+  position: relative;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-footer {
+  padding: 24px;
+}
+
+.koi_c-footer__content {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.koi_c-footer-nav {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.koi_c-footer-nav__text {
+  position: relative;
+}
+.koi_c-footer-nav__text:not(:first-child) {
+  margin-left: 24px;
+}
+.koi_c-footer-nav__text:not(:first-child)::before {
+  background-color: #d0d4da;
+  border-radius: 999px;
+  content: "";
+  height: 4px;
+  left: -14px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 4px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-list {
+  margin-left: 24px;
+}
+.koi_c-list li + li {
+  margin-top: 4px;
+}
+
+.koi_c-list--disc {
+  list-style-type: disc;
+}
+
+.koi_c-list--square {
+  list-style-type: square;
+}
+
+.koi_c-list--roman {
+  list-style-type: upper-roman;
+}
+
+.koi_c-list--none {
+  list-style-type: none;
+  margin-left: none;
+}
+
+.koi_c-list--ordered {
+  list-style-type: decimal;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-modal {
+  align-items: center;
+  background: rgba(15, 37, 56, 0.7);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 0.25s ease;
+  z-index: 1000;
+}
+
+.koi_c-modal--xs .koi_c-modal__box {
+  width: 400px;
+}
+
+.koi_c-modal--sm .koi_c-modal__box {
+  width: 600px;
+}
+
+.koi_c-modal--md .koi_c-modal__box {
+  width: 800px;
+}
+
+.koi_c-modal--lg .koi_c-modal__box {
+  width: 1000px;
+}
+
+.koi_c-modal--xl .koi_c-modal__box {
+  width: 1200px;
+}
+
+.koi_c-modal--fullscreen .koi_c-modal__box {
+  width: 90vw;
+}
+.koi_c-modal--fullscreen .koi_c-modal__body {
+  height: 90vh;
+  max-height: 90vh;
+}
+
+.koi_c-modal__box {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition: opacity 0.25s ease;
+}
+.koi_c-modal__box > div:first-of-type {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.koi_c-modal__box > div:last-of-type {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.koi_c-modal__close {
+  position: absolute;
+}
+.koi_c-modal--xs .koi_c-modal__close, .koi_c-modal--sm .koi_c-modal__close, .koi_c-modal--md .koi_c-modal__close, .koi_c-modal--lg .koi_c-modal__close, .koi_c-modal--xl .koi_c-modal__close {
+  right: 24px;
+  top: 13px;
+}
+.koi_c-modal--error .koi_c-modal__close, .koi_c-modal--info .koi_c-modal__close, .koi_c-modal--success .koi_c-modal__close, .koi_c-modal--warning .koi_c-modal__close {
+  top: 24px;
+}
+.koi_c-modal--fullscreen .koi_c-modal__close {
+  right: -19px;
+  top: -19px;
+}
+
+.koi_c-modal__accent {
+  background-color: #ffffff;
+  height: 10px;
+}
+
+.koi_c-modal__header {
+  background: #ffffff;
+  padding: 16px 24px;
+}
+
+.koi_c-modal__headline {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.koi_c-modal__body {
+  background: #ffffff;
+  max-height: 60vh;
+  overflow: auto;
+  padding: 0 24px;
+}
+
+.koi_c-modal__controls {
+  align-items: center;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.koi_c-modal__control-group {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.koi_c-modal--borders .koi_c-modal__header {
+  border-bottom: 1px solid #d0d4da;
+}
+.koi_c-modal--borders .koi_c-modal__controls {
+  border-top: 1px solid #d0d4da;
+}
+.koi_c-modal--borders .koi_c-modal__body {
+  padding: 24px;
+}
+
+.koi_c-modal--error .koi_c-modal__accent {
+  background: #cd202c;
+}
+
+.koi_c-modal--warning .koi_c-modal__accent {
+  background: #f66d00;
+}
+
+.koi_c-modal--success .koi_c-modal__accent {
+  background: #49ab62;
+}
+
+.koi_c-modal--info .koi_c-modal__accent {
+  background: #006df6;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-pagination {
+  align-items: center;
+  display: flex;
+}
+.koi_c-pagination.koi_c-pagination--left {
+  justify-content: flex-start;
+}
+.koi_c-pagination.koi_c-pagination--center {
+  justify-content: center;
+}
+.koi_c-pagination.koi_c-pagination--right {
+  justify-content: flex-end;
+}
+
+.koi_c-pagination__list {
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  margin: 0 8px;
+}
+
+.koi_c-pagination__item:not(:first-child) {
+  margin-left: 8px;
+}
+.koi_c-pagination__item > .koi_c-button--tertiary {
+  background-color: transparent;
+}
+
+.koi_c-pagination__ellipsis {
+  color: #4a5568;
+  display: inline-block;
+  text-align: center;
+  width: 22px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-profile {
+  position: relative;
+}
+
+.koi_c-profile__trigger {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  text-align: left;
+}
+.koi_c-profile__trigger:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-profile__avatar {
+  border-radius: 4px;
+  height: 32px;
+  width: 32px;
+}
+
+.koi_c-profile__initials {
+  background-color: #006df6;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: 800;
+  height: 32px;
+  justify-content: center;
+  line-height: 32px;
+  text-align: center;
+  width: 32px;
+}
+
+.koi_c-profile__user {
+  text-align: right;
+}
+
+.koi_c-profile__name {
+  color: #0f2538;
+  display: block;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.koi_c-profile__role {
+  color: #4a5568;
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.koi_c-profile__caret {
+  color: #768191;
+  transition: 0.25s ease;
+}
+.koi_c-profile__trigger:hover .koi_c-profile__caret {
+  color: #0f2538;
+}
+
+.koi_c-profile__links {
+  background-color: #ffffff;
+  border: 1px solid #d0d4da;
+  border-radius: 4px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  min-width: 200px;
+  opacity: 0;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 100%;
+  transform: translate(0, 16px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  visibility: hidden;
+  z-index: 2;
+}
+.koi_c-profile.is-open .koi_c-profile__links {
+  opacity: 1;
+  transform: translate(0, 4px);
+  visibility: visible;
+}
+
+.koi_c-profile__link {
+  align-items: center;
+  color: #4a5568;
+  display: flex;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.koi_c-profile__link:hover {
+  background-color: #f8f9fa;
+  color: #0f2538;
+}
+.koi_c-profile__link:hover .koi_c-icon {
+  color: #4a5568;
+}
+.koi_c-profile__link:focus {
+  outline: 1px solid #006df6;
+  outline-offset: -2px;
+}
+.koi_c-profile__link .koi_c-icon {
+  color: #768191;
+  transition: color 0.25s ease;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-sidebar-nav {
+  position: relative;
+}
+
+.koi_c-sidebar-nav--level-1 {
+  padding: 16px 0;
+}
+
+.koi_c-sidebar-nav--level-2 {
+  display: none;
+  margin: 0 16px 16px 52px;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav--level-2, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav--level-2 {
+  display: block;
+}
+.koi_c-app.is-collapsed .koi_c-sidebar-nav--level-2 {
+  display: none;
+}
+
+.koi_c-sidebar-nav__item--level-1 + .koi_c-sidebar-nav__item--level-1 {
+  margin-top: 4px;
+}
+.koi_c-sidebar-nav__item--level-1 .koi_c-sidebar-nav__text--level-1 {
+  color: #0f2538;
+  transition: color 0.25s ease;
+}
+.koi_c-sidebar-nav__item--level-1 .koi_c-sidebar-nav__icon--level-1,
+.koi_c-sidebar-nav__item--level-1 .koi_c-sidebar-nav__caret--level-1 {
+  color: #768191;
+  transition: color 0.25s ease;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__text--level-1,
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__icon--level-1,
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__caret--level-1, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__text--level-1,
+.koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__icon--level-1,
+.koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__caret--level-1, .koi_c-sidebar-nav__item--level-1:hover .koi_c-sidebar-nav__text--level-1,
+.koi_c-sidebar-nav__item--level-1:hover .koi_c-sidebar-nav__icon--level-1,
+.koi_c-sidebar-nav__item--level-1:hover .koi_c-sidebar-nav__caret--level-1 {
+  color: #004eaf;
+}
+
+.koi_c-sidebar-nav__item--level-2 {
+  margin-top: 8px;
+}
+.koi_c-sidebar-nav__item--level-2 .koi_c-sidebar-nav__text--level-2 {
+  color: #0f2538;
+  transition: color 0.25s ease;
+}
+.koi_c-sidebar-nav__item--level-2.is-active .koi_c-sidebar-nav__text--level-2, .koi_c-sidebar-nav__item--level-2.is-current-route .koi_c-sidebar-nav__text--level-2, .koi_c-sidebar-nav__item--level-2:hover .koi_c-sidebar-nav__text--level-2 {
+  color: #004eaf;
+}
+
+.koi_c-sidebar-nav__group {
+  display: flex;
+}
+
+.koi_c-sidebar-nav__group--level-1 {
+  align-items: flex-start;
+  border-radius: 4px;
+  margin: 0 16px;
+  position: relative;
+  transition: background-color 0.25s ease;
+}
+.koi_c-sidebar-nav__group--level-1:hover {
+  background-color: #ecf4ff;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__group--level-1, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__group--level-1 {
+  background-color: #ecf4ff;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__group--level-1::before, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__group--level-1::before {
+  background-color: #006df6;
+  border-radius: 0 4px 4px 0;
+  bottom: 0;
+  content: "";
+  left: -16px;
+  position: absolute;
+  top: 0;
+  width: 4px;
+}
+
+.koi_c-sidebar-nav__link {
+  color: inherit;
+  flex-grow: 1;
+}
+
+.koi_c-sidebar-nav__link--level-1 {
+  align-items: flex-start;
+  display: flex;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 0 8px 8px;
+}
+.koi_c-sidebar-nav__link--level-1:focus {
+  outline: 1px solid #006df6;
+  outline-offset: -4px;
+}
+
+.koi_c-sidebar-nav__link--level-2 {
+  font-size: 12px;
+  line-height: 18px;
+  position: relative;
+}
+.koi_c-sidebar-nav__link--level-2::before {
+  background-color: #768191;
+  border-radius: 999px;
+  content: "";
+  height: 4px;
+  left: -12px;
+  position: absolute;
+  top: 7px;
+  width: 4px;
+}
+.koi_c-sidebar-nav__link--level-2:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+.koi_c-sidebar-nav__item--level-2.is-active .koi_c-sidebar-nav__link--level-2, .koi_c-sidebar-nav__item--level-2.is-current-route .koi_c-sidebar-nav__link--level-2 {
+  font-weight: 600;
+}
+.koi_c-sidebar-nav__item--level-2.is-active .koi_c-sidebar-nav__link--level-2::before, .koi_c-sidebar-nav__item--level-2.is-current-route .koi_c-sidebar-nav__link--level-2::before {
+  background-color: #006df6;
+}
+
+.koi_c-sidebar-nav__text {
+  color: inherit;
+  flex-grow: 1;
+}
+.koi_c-app.is-collapsed .koi_c-sidebar-nav__text {
+  display: none;
+}
+
+.koi_c-sidebar-nav__text--level-1 {
+  margin-left: 8px;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__text--level-1, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__text--level-1 {
+  font-weight: 600;
+}
+
+.koi_c-sidebar-nav__icon,
+.koi_c-sidebar-nav__caret {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.koi_c-sidebar-nav__caret {
+  cursor: pointer;
+  padding: 8px;
+}
+.koi_c-sidebar-nav__caret:focus {
+  outline: 1px solid #006df6;
+  outline-offset: -4px;
+}
+.koi_c-app.is-collapsed .koi_c-sidebar-nav__caret {
+  display: none;
+}
+.koi_c-sidebar-nav__item--level-1.is-active .koi_c-sidebar-nav__caret > .koi_c-icon, .koi_c-sidebar-nav__item--level-1.is-current-route .koi_c-sidebar-nav__caret > .koi_c-icon {
+  transform: rotate(180deg);
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-stats-spotlight {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.koi_c-stats-spotlight__item {
+  flex-grow: 1;
+  padding: 8px;
+}
+.koi_c-stats-spotlight__item:not(:first-child) {
+  border-left: 1px solid #d0d4da;
+}
+
+.koi_c-stats-spotlight__value {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.koi_c-stats-spotlight__value .koi_c-icon {
+  margin-right: 16px;
+}
+
+.koi_c-stats-spotlight--blue .koi_c-stats-spotlight__icon {
+  color: #006df6;
+}
+
+.koi_c-stats-spotlight--gray .koi_c-stats-spotlight__icon {
+  color: #768191;
+}
+
+.koi_c-stats-spotlight--error .koi_c-stats-spotlight__icon {
+  color: #cd202c;
+}
+
+.koi_c-stats-spotlight--info .koi_c-stats-spotlight__icon {
+  color: #006df6;
+}
+
+.koi_c-stats-spotlight--success .koi_c-stats-spotlight__icon {
+  color: #49ab62;
+}
+
+.koi_c-stats-spotlight--warning .koi_c-stats-spotlight__icon {
+  color: #f66d00;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-toast {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.koi_c-toast__accent {
+  border-radius: 4px 4px 0 0;
+  height: 6px;
+}
+
+.koi_c-toast__wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.koi_c-toast__icon {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 999px;
+  display: flex;
+  flex-shrink: 0;
+  height: 32px;
+  justify-content: center;
+  margin: 4px 4px 0 0;
+  width: 32px;
+}
+
+.koi_c-toast__content {
+  flex: 1;
+  padding: 0 16px;
+}
+.koi_c-toast__content .koi_c-text {
+  word-break: break-word;
+}
+
+.koi_c-toast__close {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 999px;
+  color: inherit;
+  display: flex;
+  flex-shrink: 0;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+.koi_c-toast__close:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 4px;
+}
+
+.koi_c-toast__close-icon {
+  color: #768191;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+.koi_c-toast__close-icon:hover {
+  color: #0f2538;
+}
+.koi_c-toast__close-icon > .koi_c-icon {
+  display: block;
+}
+
+.koi_c-toast--info .koi_c-toast__accent {
+  background: #006df6;
+}
+.koi_c-toast--info .koi_c-toast__icon {
+  box-shadow: 0 0 0 4px #a9cfff;
+  color: #006df6;
+}
+
+.koi_c-toast--error .koi_c-toast__accent {
+  background: #cd202c;
+}
+.koi_c-toast--error .koi_c-toast__icon {
+  box-shadow: 0 0 0 4px #efb7b7;
+  color: #cd202c;
+}
+
+.koi_c-toast--success .koi_c-toast__accent {
+  background: #49ab62;
+}
+.koi_c-toast--success .koi_c-toast__icon {
+  box-shadow: 0 0 0 4px #c2e5cb;
+  color: #49ab62;
+}
+
+.koi_c-toast--warning .koi_c-toast__accent {
+  background: #f66d00;
+}
+.koi_c-toast--warning .koi_c-toast__icon {
+  box-shadow: 0 0 0 4px #ffcfa9;
+  color: #f66d00;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_c-toasts {
+  position: fixed;
+  right: 24px;
+  top: 24px;
+  width: 400px;
+  z-index: 1100;
+}
+
+.koi_c-toasts__item + .koi_c-toasts__item {
+  margin-top: 16px;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translate3d(150%, 0, 0);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_u-align-left {
+  text-align: left;
+}
+
+.koi_u-align-center {
+  text-align: center;
+}
+
+.koi_u-align-right {
+  text-align: right;
+}
+
+.koi_u-align-bottom {
+  vertical-align: bottom;
+}
+
+.koi_u-align-middle {
+  vertical-align: middle;
+}
+
+.koi_u-align-top {
+  vertical-align: top;
+}
+
+/* (c) 2020 Cofense Inc. */
+/* stylelint-disable declaration-no-important */
+.koi_u-invisible, #skip-to-link:not(:focus) {
+  border: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}
+
+/* stylelint-enable declaration-no-important */
+/* (c) 2020 Cofense Inc. */
+.koi_u-size-1of12 {
+  width: 8.3333333333%;
+}
+
+.koi_u-size-1of6,
+.koi_u-size-2of12 {
+  width: 16.6666666667%;
+}
+
+.koi_u-size-1of5 {
+  width: 20%;
+}
+
+.koi_u-size-1of4,
+.koi_u-size-3of12 {
+  width: 25%;
+}
+
+.koi_u-size-1of3,
+.koi_u-size-2of6,
+.koi_u-size-4of12 {
+  width: 33.3333333333%;
+}
+
+.koi_u-size-2of5 {
+  width: 40%;
+}
+
+.koi_u-size-5of12 {
+  width: 41.6666666667%;
+}
+
+.koi_u-size-1of2,
+.koi_u-size-2of4,
+.koi_u-size-3of6,
+.koi_u-size-6of12 {
+  width: 50%;
+}
+
+.koi_u-size-7of12 {
+  width: 58.3333333333%;
+}
+
+.koi_u-size-3of5 {
+  width: 60%;
+}
+
+.koi_u-size-2of3,
+.koi_u-size-4of6,
+.koi_u-size-8of12 {
+  width: 66.6666666667%;
+}
+
+.koi_u-size-3of4,
+.koi_u-size-9of12 {
+  width: 75%;
+}
+
+.koi_u-size-4of5 {
+  width: 80%;
+}
+
+.koi_u-size-5of6,
+.koi_u-size-10of12 {
+  width: 83.3333333333%;
+}
+
+.koi_u-size-11of12 {
+  width: 91.6666666667%;
+}
+
+.koi_u-size-1of1 {
+  width: 100%;
+}
+
+@media screen and (min-width: 375px) {
+  .koi_u-size-1of12--xs {
+    width: 8.3333333333%;
+  }
+  .koi_u-size-1of6--xs,
+.koi_u-size-2of12--xs {
+    width: 16.6666666667%;
+  }
+  .koi_u-size-1of5--xs {
+    width: 20%;
+  }
+  .koi_u-size-1of4--xs,
+.koi_u-size-3of12--xs {
+    width: 25%;
+  }
+  .koi_u-size-1of3--xs,
+.koi_u-size-2of6--xs,
+.koi_u-size-4of12--xs {
+    width: 33.3333333333%;
+  }
+  .koi_u-size-2of5--xs {
+    width: 40%;
+  }
+  .koi_u-size-5of12--xs {
+    width: 41.6666666667%;
+  }
+  .koi_u-size-1of2--xs,
+.koi_u-size-2of4--xs,
+.koi_u-size-3of6--xs,
+.koi_u-size-6of12--xs {
+    width: 50%;
+  }
+  .koi_u-size-7of12--xs {
+    width: 58.3333333333%;
+  }
+  .koi_u-size-3of5--xs {
+    width: 60%;
+  }
+  .koi_u-size-2of3--xs,
+.koi_u-size-4of6--xs,
+.koi_u-size-8of12--xs {
+    width: 66.6666666667%;
+  }
+  .koi_u-size-3of4--xs,
+.koi_u-size-9of12--xs {
+    width: 75%;
+  }
+  .koi_u-size-4of5--xs {
+    width: 80%;
+  }
+  .koi_u-size-5of6--xs,
+.koi_u-size-10of12--xs {
+    width: 83.3333333333%;
+  }
+  .koi_u-size-11of12--xs {
+    width: 91.6666666667%;
+  }
+  .koi_u-size-1of1--xs {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 540px) {
+  .koi_u-size-1of12--sm {
+    width: 8.3333333333%;
+  }
+  .koi_u-size-1of6--sm,
+.koi_u-size-2of12--sm {
+    width: 16.6666666667%;
+  }
+  .koi_u-size-1of5--sm {
+    width: 20%;
+  }
+  .koi_u-size-1of4--sm,
+.koi_u-size-3of12--sm {
+    width: 25%;
+  }
+  .koi_u-size-1of3--sm,
+.koi_u-size-2of6--sm,
+.koi_u-size-4of12--sm {
+    width: 33.3333333333%;
+  }
+  .koi_u-size-2of5--sm {
+    width: 40%;
+  }
+  .koi_u-size-5of12--sm {
+    width: 41.6666666667%;
+  }
+  .koi_u-size-1of2--sm,
+.koi_u-size-2of4--sm,
+.koi_u-size-3of6--sm,
+.koi_u-size-6of12--sm {
+    width: 50%;
+  }
+  .koi_u-size-7of12--sm {
+    width: 58.3333333333%;
+  }
+  .koi_u-size-3of5--sm {
+    width: 60%;
+  }
+  .koi_u-size-2of3--sm,
+.koi_u-size-4of6--sm,
+.koi_u-size-8of12--sm {
+    width: 66.6666666667%;
+  }
+  .koi_u-size-3of4--sm,
+.koi_u-size-9of12--sm {
+    width: 75%;
+  }
+  .koi_u-size-4of5--sm {
+    width: 80%;
+  }
+  .koi_u-size-5of6--sm,
+.koi_u-size-10of12--sm {
+    width: 83.3333333333%;
+  }
+  .koi_u-size-11of12--sm {
+    width: 91.6666666667%;
+  }
+  .koi_u-size-1of1--sm {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 736px) {
+  .koi_u-size-1of12--md {
+    width: 8.3333333333%;
+  }
+  .koi_u-size-1of6--md,
+.koi_u-size-2of12--md {
+    width: 16.6666666667%;
+  }
+  .koi_u-size-1of5--md {
+    width: 20%;
+  }
+  .koi_u-size-1of4--md,
+.koi_u-size-3of12--md {
+    width: 25%;
+  }
+  .koi_u-size-1of3--md,
+.koi_u-size-2of6--md,
+.koi_u-size-4of12--md {
+    width: 33.3333333333%;
+  }
+  .koi_u-size-2of5--md {
+    width: 40%;
+  }
+  .koi_u-size-5of12--md {
+    width: 41.6666666667%;
+  }
+  .koi_u-size-1of2--md,
+.koi_u-size-2of4--md,
+.koi_u-size-3of6--md,
+.koi_u-size-6of12--md {
+    width: 50%;
+  }
+  .koi_u-size-7of12--md {
+    width: 58.3333333333%;
+  }
+  .koi_u-size-3of5--md {
+    width: 60%;
+  }
+  .koi_u-size-2of3--md,
+.koi_u-size-4of6--md,
+.koi_u-size-8of12--md {
+    width: 66.6666666667%;
+  }
+  .koi_u-size-3of4--md,
+.koi_u-size-9of12--md {
+    width: 75%;
+  }
+  .koi_u-size-4of5--md {
+    width: 80%;
+  }
+  .koi_u-size-5of6--md,
+.koi_u-size-10of12--md {
+    width: 83.3333333333%;
+  }
+  .koi_u-size-11of12--md {
+    width: 91.6666666667%;
+  }
+  .koi_u-size-1of1--md {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .koi_u-size-1of12--lg {
+    width: 8.3333333333%;
+  }
+  .koi_u-size-1of6--lg,
+.koi_u-size-2of12--lg {
+    width: 16.6666666667%;
+  }
+  .koi_u-size-1of5--lg {
+    width: 20%;
+  }
+  .koi_u-size-1of4--lg,
+.koi_u-size-3of12--lg {
+    width: 25%;
+  }
+  .koi_u-size-1of3--lg,
+.koi_u-size-2of6--lg,
+.koi_u-size-4of12--lg {
+    width: 33.3333333333%;
+  }
+  .koi_u-size-2of5--lg {
+    width: 40%;
+  }
+  .koi_u-size-5of12--lg {
+    width: 41.6666666667%;
+  }
+  .koi_u-size-1of2--lg,
+.koi_u-size-2of4--lg,
+.koi_u-size-3of6--lg,
+.koi_u-size-6of12--lg {
+    width: 50%;
+  }
+  .koi_u-size-7of12--lg {
+    width: 58.3333333333%;
+  }
+  .koi_u-size-3of5--lg {
+    width: 60%;
+  }
+  .koi_u-size-2of3--lg,
+.koi_u-size-4of6--lg,
+.koi_u-size-8of12--lg {
+    width: 66.6666666667%;
+  }
+  .koi_u-size-3of4--lg,
+.koi_u-size-9of12--lg {
+    width: 75%;
+  }
+  .koi_u-size-4of5--lg {
+    width: 80%;
+  }
+  .koi_u-size-5of6--lg,
+.koi_u-size-10of12--lg {
+    width: 83.3333333333%;
+  }
+  .koi_u-size-11of12--lg {
+    width: 91.6666666667%;
+  }
+  .koi_u-size-1of1--lg {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1140px) {
+  .koi_u-size-1of12--xl {
+    width: 8.3333333333%;
+  }
+  .koi_u-size-1of6--xl,
+.koi_u-size-2of12--xl {
+    width: 16.6666666667%;
+  }
+  .koi_u-size-1of5--xl {
+    width: 20%;
+  }
+  .koi_u-size-1of4--xl,
+.koi_u-size-3of12--xl {
+    width: 25%;
+  }
+  .koi_u-size-1of3--xl,
+.koi_u-size-2of6--xl,
+.koi_u-size-4of12--xl {
+    width: 33.3333333333%;
+  }
+  .koi_u-size-2of5--xl {
+    width: 40%;
+  }
+  .koi_u-size-5of12--xl {
+    width: 41.6666666667%;
+  }
+  .koi_u-size-1of2--xl,
+.koi_u-size-2of4--xl,
+.koi_u-size-3of6--xl,
+.koi_u-size-6of12--xl {
+    width: 50%;
+  }
+  .koi_u-size-7of12--xl {
+    width: 58.3333333333%;
+  }
+  .koi_u-size-3of5--xl {
+    width: 60%;
+  }
+  .koi_u-size-2of3--xl,
+.koi_u-size-4of6--xl,
+.koi_u-size-8of12--xl {
+    width: 66.6666666667%;
+  }
+  .koi_u-size-3of4--xl,
+.koi_u-size-9of12--xl {
+    width: 75%;
+  }
+  .koi_u-size-4of5--xl {
+    width: 80%;
+  }
+  .koi_u-size-5of6--xl,
+.koi_u-size-10of12--xl {
+    width: 83.3333333333%;
+  }
+  .koi_u-size-11of12--xl {
+    width: 91.6666666667%;
+  }
+  .koi_u-size-1of1--xl {
+    width: 100%;
+  }
+}
+/* (c) 2020 Cofense Inc. */
+/* stylelint-disable declaration-no-important */
+.koi_u-space-bottom-xxs {
+  margin-bottom: 4px !important;
+}
+
+.koi_u-space-bottom-xs {
+  margin-bottom: 8px !important;
+}
+
+.koi_u-space-bottom-sm {
+  margin-bottom: 16px !important;
+}
+
+.koi_u-space-bottom-md {
+  margin-bottom: 24px !important;
+}
+
+.koi_u-space-bottom-lg {
+  margin-bottom: 32px !important;
+}
+
+.koi_u-space-bottom-xl {
+  margin-bottom: 48px !important;
+}
+
+.koi_u-space-bottom-xxl {
+  margin-bottom: 64px !important;
+}
+
+.koi_u-space-left-xxs {
+  margin-left: 4px !important;
+}
+
+.koi_u-space-left-xs {
+  margin-left: 8px !important;
+}
+
+.koi_u-space-left-sm {
+  margin-left: 16px !important;
+}
+
+.koi_u-space-left-md {
+  margin-left: 24px !important;
+}
+
+.koi_u-space-left-lg {
+  margin-left: 32px !important;
+}
+
+.koi_u-space-left-xl {
+  margin-left: 48px !important;
+}
+
+.koi_u-space-left-xxl {
+  margin-left: 64px !important;
+}
+
+.koi_u-space-top-xxs {
+  margin-top: 4px !important;
+}
+
+.koi_u-space-top-xs {
+  margin-top: 8px !important;
+}
+
+.koi_u-space-top-sm {
+  margin-top: 16px !important;
+}
+
+.koi_u-space-top-md {
+  margin-top: 24px !important;
+}
+
+.koi_u-space-top-lg {
+  margin-top: 32px !important;
+}
+
+.koi_u-space-top-xl {
+  margin-top: 48px !important;
+}
+
+.koi_u-space-top-xxl {
+  margin-top: 64px !important;
+}
+
+.koi_u-space-right-xxs {
+  margin-right: 4px !important;
+}
+
+.koi_u-space-right-xs {
+  margin-right: 8px !important;
+}
+
+.koi_u-space-right-sm {
+  margin-right: 16px !important;
+}
+
+.koi_u-space-right-md {
+  margin-right: 24px !important;
+}
+
+.koi_u-space-right-lg {
+  margin-right: 32px !important;
+}
+
+.koi_u-space-right-xl {
+  margin-right: 48px !important;
+}
+
+.koi_u-space-right-xxl {
+  margin-right: 64px !important;
+}
+
+.koi_u-space-all-xxs {
+  margin: 4px !important;
+}
+
+.koi_u-space-all-xs {
+  margin: 8px !important;
+}
+
+.koi_u-space-all-sm {
+  margin: 16px !important;
+}
+
+.koi_u-space-all-md {
+  margin: 24px !important;
+}
+
+.koi_u-space-all-lg {
+  margin: 32px !important;
+}
+
+.koi_u-space-all-xl {
+  margin: 48px !important;
+}
+
+.koi_u-space-all-xxl {
+  margin: 64px !important;
+}
+
+.koi_u-space-horizontal-xxs {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+.koi_u-space-horizontal-xs {
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+}
+
+.koi_u-space-horizontal-sm {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+}
+
+.koi_u-space-horizontal-md {
+  margin-left: 24px !important;
+  margin-right: 24px !important;
+}
+
+.koi_u-space-horizontal-lg {
+  margin-left: 32px !important;
+  margin-right: 32px !important;
+}
+
+.koi_u-space-horizontal-xl {
+  margin-left: 48px !important;
+  margin-right: 48px !important;
+}
+
+.koi_u-space-horizontal-xxl {
+  margin-left: 64px !important;
+  margin-right: 64px !important;
+}
+
+.koi_u-space-vertical-xxs {
+  margin-bottom: 4px !important;
+  margin-top: 4px !important;
+}
+
+.koi_u-space-vertical-xs {
+  margin-bottom: 8px !important;
+  margin-top: 8px !important;
+}
+
+.koi_u-space-vertical-sm {
+  margin-bottom: 16px !important;
+  margin-top: 16px !important;
+}
+
+.koi_u-space-vertical-md {
+  margin-bottom: 24px !important;
+  margin-top: 24px !important;
+}
+
+.koi_u-space-vertical-lg {
+  margin-bottom: 32px !important;
+  margin-top: 32px !important;
+}
+
+.koi_u-space-vertical-xl {
+  margin-bottom: 48px !important;
+  margin-top: 48px !important;
+}
+
+.koi_u-space-vertical-xxl {
+  margin-bottom: 64px !important;
+  margin-top: 64px !important;
+}
+
+/* stylelint-enable declaration-no-important */
+/* (c) 2020 Cofense Inc. */
+.koi_u-wrapper {
+  margin: 0 auto;
+  max-width: 1300px;
+  padding: 0 24px;
+}
+
+/* (c) 2020 Cofense Inc. */
+.koi_s-markdown {
+  color: #0f2538;
+  font-family: Inter, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 16px;
+  line-height: 22px;
+}
+.koi_s-markdown b,
+.koi_s-markdown strong {
+  font-weight: 600;
+}
+.koi_s-markdown i,
+.koi_s-markdown em {
+  font-style: italic;
+}
+.koi_s-markdown h1,
+.koi_s-markdown h2,
+.koi_s-markdown h3,
+.koi_s-markdown h4,
+.koi_s-markdown h5,
+.koi_s-markdown h6 {
+  font-weight: 800;
+}
+.koi_s-markdown h1 {
+  font-size: 44px;
+  line-height: 50px;
+  margin-bottom: 16px;
+}
+.koi_s-markdown h2 {
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 16px;
+}
+.koi_s-markdown h3 {
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+.koi_s-markdown hr {
+  background-color: #d0d4da;
+  border: none;
+  height: 1px;
+  margin: 24px 0;
+}
+.koi_s-markdown a {
+  color: #006df6;
+  text-decoration: underline;
+}
+.koi_s-markdown a:hover {
+  color: #004eaf;
+}
+.koi_s-markdown a:active {
+  color: #002049;
+}
+.koi_s-markdown a:focus {
+  outline: 1px solid #006df6;
+  outline-offset: 2px;
+}
+.koi_s-markdown pre {
+  margin: 0;
+  padding: 0;
+}
+.koi_s-markdown p code,
+.koi_s-markdown ul code,
+.koi_s-markdown ol code,
+.koi_s-markdown blockquote code,
+.koi_s-markdown table code {
+  background-color: #fbeeee;
+  border: 1px solid #cd202c;
+  border-radius: 2px;
+  color: #8d1f1f;
+  display: inline-block;
+  font-family: "Source Code Pro", monospace;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0 4px;
+}
+.koi_s-markdown pre,
+.koi_s-markdown p,
+.koi_s-markdown ul,
+.koi_s-markdown ol {
+  margin-bottom: 24px;
+}
+.koi_s-markdown ul,
+.koi_s-markdown ol {
+  padding-left: 16px;
+}
+.koi_s-markdown ul ul,
+.koi_s-markdown ul ol,
+.koi_s-markdown ol ul,
+.koi_s-markdown ol ol {
+  margin: 8px 0;
+}
+.koi_s-markdown ul {
+  list-style-type: disc;
+}
+.koi_s-markdown ul ul {
+  list-style-type: circle;
+}
+.koi_s-markdown ol {
+  list-style-type: decimal;
+}
+.koi_s-markdown ol ol {
+  list-style-type: lower-alpha;
+}
+.koi_s-markdown li + li {
+  margin-top: 8px;
+}
+.koi_s-markdown *:last-child:not(hr) {
+  margin-bottom: 0;
+}
+.koi_s-markdown table {
+  background-color: transparent;
+  border-collapse: collapse;
+  max-width: 100%;
+  width: 100%;
+}
+.koi_s-markdown table thead {
+  background-color: #ffffff;
+}
+.koi_s-markdown table tbody {
+  background-color: #ffffff;
+}
+.koi_s-markdown table tr:nth-of-type(even) {
+  background-color: #f8f9fa;
+}
+.koi_s-markdown table td {
+  color: #0f2538;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+.koi_s-markdown table th {
+  border-bottom: 2px solid #006df6;
+  color: #4a5568;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  padding: 8px 16px;
+  text-align: left;
+  vertical-align: bottom;
+}
