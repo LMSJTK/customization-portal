@@ -35,6 +35,7 @@ window.API_CONFIG = {
 
     // Endpoints
     endpoints: {
-        content: '/api/content.php'
+        content: '/api/content.php',
+        brandKit: '/api/brand-kit.php'
     }
 };
