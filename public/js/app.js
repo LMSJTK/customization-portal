@@ -317,18 +317,13 @@ class CustomizationPortal {
     }
 
     /**
-     * Customize content - open brand kit modal
+     * Customize content - open editor
      */
     customizeContent(contentId) {
         console.log('Customizing content:', contentId);
 
-        // Store the content ID for later use
-        this.currentContentId = contentId;
-
-        // Show brand kit modal
-        this.showBrandKitModal();
-
-        // TODO: In future iterations, this will open the full editor
+        // Navigate to editor
+        window.location.href = `/editor.html?id=${contentId}`;
     }
 
     /**

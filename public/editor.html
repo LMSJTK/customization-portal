@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Editor - Cofense Customization Portal</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- Okta Auth JS CDN -->
+    <script src="https://global.oktacdn.com/okta-auth-js/7.7.0/okta-auth-js.min.js"></script>
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/34zdrcycc46s2foi5g7u7ztooqytldf9bc7egh8hb1t6me5y/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+    <style>
+        /* Editor-specific styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+        }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Editor Header */
+        .editor-header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .editor-header-left h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+            color: #111827;
+        }
+
+        .editor-header-left p {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .editor-header-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #d1d5db;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: #f9fafb;
+        }
+
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .btn.active {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        /* Editor Body */
+        .editor-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .editor-sidebar {
+            width: 320px;
+            background: #f9fafb;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            padding: 24px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin: 0 0 12px 0;
+        }
+
+        /* Brand Kit Status */
+        .brand-kit-status {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .brand-kit-status.applied {
+            background: #d1fae5;
+            border-color: #6ee7b7;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .status-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .status-icon.success {
+            background: #a7f3d0;
+            color: #059669;
+        }
+
+        .status-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-body p {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0 0 12px 0;
+        }
+
+        /* Element Editor */
+        .element-editor {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-input-group input[type="color"] {
+            width: 48px;
+            height: 38px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .color-input-group input[type="text"] {
+            flex: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        /* Preview Area */
+        .editor-preview {
+            flex: 1;
+            background: #e5e7eb;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        /* Email Preview */
+        #email-preview {
+            max-width: 680px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Editable Elements */
+        .editable-element {
+            cursor: pointer;
+            transition: outline 0.2s ease;
+            position: relative;
+        }
+
+        .editable-element.selected {
+            outline: 2px solid #ef4444;
+            outline-offset: 2px;
+        }
+
+        .text-edit-mode .editable-element {
+            outline: 1px dashed #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .text-edit-mode .editable-element:hover {
+            outline: 2px solid #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Hint Banner */
+        .hint-banner {
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+            padding: 12px 16px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .hint-banner.show {
+            display: block;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: white;
+        }
+
+        .loading.hidden {
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #4f46e5;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading State -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Editor Container -->
+    <div id="editor-container" class="editor-container" style="display: none;">
+        <!-- Header -->
+        <div class="editor-header">
+            <div class="editor-header-left">
+                <h1 id="content-title">Email Template Editor</h1>
+                <p id="content-meta">Loading...</p>
+            </div>
+            <div class="editor-header-right">
+                <button class="btn" onclick="window.location.href='/'">
+                    ← Back
+                </button>
+                <button class="btn" id="toggle-text-edit">
+                    <span>✏️</span> Edit Text
+                </button>
+                <button class="btn" id="preview-btn">
+                    <span>👁️</span> Preview
+                </button>
+                <button class="btn btn-primary" id="save-btn">
+                    <span>💾</span> Save
+                </button>
+            </div>
+        </div>
+
+        <!-- Editor Body -->
+        <div class="editor-body">
+            <!-- Sidebar -->
+            <div class="editor-sidebar">
+                <!-- Hint Banner -->
+                <div id="text-edit-hint" class="hint-banner">
+                    Text editing is ON — Double-click any text to edit inline. Click "Edit Text" again to turn off.
+                </div>
+
+                <!-- Brand Kit Section -->
+                <div class="sidebar-section" id="brand-kit-section">
+                    <div class="brand-kit-status" id="brand-kit-status">
+                        <div class="status-header">
+                            <div class="status-icon" id="status-icon">
+                                ✨
+                            </div>
+                            <h4 id="status-title">Brand Kit Available</h4>
+                        </div>
+                        <div class="status-body">
+                            <p id="status-message">Apply your company's brand colors to this template automatically.</p>
+                            <button class="btn btn-primary" id="apply-brand-kit-btn" style="width: 100%;">
+                                Apply Brand Kit
+                            </button>
+                            <button class="btn" id="undo-brand-kit-btn" style="width: 100%; margin-top: 8px; display: none;">
+                                ↺ Undo Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Element Editor Section -->
+                <div class="sidebar-section" id="element-editor-section" style="display: none;">
+                    <h3>Editing Element</h3>
+                    <div class="element-editor">
+                        <!-- Colors -->
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="bg-color-picker" value="#2563eb">
+                                <input type="text" id="bg-color-hex" class="form-control" value="#2563EB" placeholder="#2563EB">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Text Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="text-color-picker" value="#ffffff">
+                                <input type="text" id="text-color-hex" class="form-control" value="#FFFFFF" placeholder="#FFFFFF">
+                            </div>
+                        </div>
+
+                        <!-- Typography -->
+                        <div class="form-group">
+                            <label>Typography</label>
+                            <div class="form-row">
+                                <select id="font-size-select" class="form-control">
+                                    <option value="14px">14px</option>
+                                    <option value="16px">16px</option>
+                                    <option value="18px">18px</option>
+                                    <option value="20px">20px</option>
+                                    <option value="24px">24px</option>
+                                    <option value="32px">32px</option>
+                                    <option value="36px">36px</option>
+                                    <option value="48px">48px</option>
+                                </select>
+                                <select id="font-weight-select" class="form-control">
+                                    <option value="400">Regular</option>
+                                    <option value="500">Medium</option>
+                                    <option value="600">Semibold</option>
+                                    <option value="700">Bold</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="form-group">
+                            <label>Text Content</label>
+                            <textarea id="text-content-input" class="form-control" placeholder="Edit text here..."></textarea>
+                            <div class="button-group">
+                                <button class="btn" id="text-apply-btn">Apply</button>
+                                <button class="btn" id="text-reset-btn">Reset</button>
+                            </div>
+                            <p style="font-size: 11px; color: #6b7280; margin-top: 8px;">
+                                Tip: Double-click text in preview to edit inline with formatting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Area -->
+            <div class="editor-preview">
+                <div id="email-preview">
+                    <!-- Email content will be loaded here -->
+                    <div style="text-align: center; padding: 60px 20px; color: #6b7280;">
+                        <p>Loading email template...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/brand-kit.js"></script>
+    <script src="/js/editor.js"></script>
+</body>
+</html>
