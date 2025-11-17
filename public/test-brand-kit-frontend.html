@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Kit Frontend Test</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+        .section h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .color-display {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4F46E5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        button:hover {
+            background: #4338CA;
+        }
+        button.secondary {
+            background: #6B7280;
+        }
+        button.secondary:hover {
+            background: #4B5563;
+        }
+        button.danger {
+            background: #EF4444;
+        }
+        button.danger:hover {
+            background: #DC2626;
+        }
+        .status {
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .status.success {
+            background: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #6EE7B7;
+        }
+        .status.error {
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 1px solid #FCA5A5;
+        }
+        .status.info {
+            background: #DBEAFE;
+            color: #1E40AF;
+            border: 1px solid #93C5FD;
+        }
+        pre {
+            background: #1F2937;
+            color: #F3F4F6;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Brand Kit Frontend Test</h1>
+        <p>This page tests the Brand Kit Manager without requiring full authentication.</p>
+
+        <div id="auth-warning" class="status info">
+            ⚠️ <strong>Note:</strong> This is a test page. To use the actual brand kit API, you need to be logged in through the main application.
+        </div>
+
+        <div class="section">
+            <h2>Brand Kit Manager</h2>
+            <div id="brand-kit-info">
+                <p><strong>Status:</strong> <span id="kit-status">Not loaded</span></p>
+                <p><strong>Company ID:</strong> <span id="company-id">N/A</span></p>
+                <p><strong>Is Default:</strong> <span id="is-default">N/A</span></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Current Colors</h2>
+            <div class="color-display">
+                <div>
+                    <div id="primary-color-box" class="color-box" style="background-color: #4F46E5;">
+                        Primary
+                    </div>
+                    <p style="text-align: center; margin-top: 8px;"><code id="primary-hex">#4F46E5</code></p>
+                </div>
+                <div>
+                    <div id="text-color-box" class="color-box" style="background-color: #FFFFFF; color: #333; border: 2px solid #333;">
+                        Text
+                    </div>
+                    <p style="text-align: center; margin-top: 8px;"><code id="text-hex">#FFFFFF</code></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Edit Colors</h2>
+            <div class="controls">
+                <input type="color" id="primary-picker" value="#4F46E5">
+                <input type="text" id="primary-input" value="#4F46E5" placeholder="#4F46E5" style="width: 100px;">
+                <button onclick="updatePrimaryColor()">Update Primary</button>
+            </div>
+            <div class="controls">
+                <input type="color" id="text-picker" value="#FFFFFF">
+                <input type="text" id="text-input" value="#FFFFFF" placeholder="#FFFFFF" style="width: 100px;">
+                <button onclick="updateTextColor()">Update Text</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Actions</h2>
+            <div class="controls">
+                <button onclick="loadBrandKit()">Load Brand Kit</button>
+                <button class="secondary" onclick="saveBrandKit()">Save Brand Kit</button>
+                <button class="danger" onclick="resetBrandKit()">Reset to Defaults</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>API Response</h2>
+            <pre id="api-response">Waiting for action...</pre>
+        </div>
+
+        <div class="section">
+            <h2>Usage Example</h2>
+            <pre>// Access the brand kit manager
+const brandKit = window.brandKitManager.getBrandKit();
+console.log('Primary Color:', brandKit.primary_color);
+console.log('Text Color:', brandKit.text_color);
+
+// Update a color
+await window.brandKitManager.updateProperty('primary_color', '#EF4444');
+
+// Save full brand kit
+await window.brandKitManager.save({
+    primary_color: '#4F46E5',
+    text_color: '#FFFFFF',
+    font_family: 'Inter'
+});
+
+// Listen to changes
+window.brandKitManager.addEventListener((event, data) => {
+    console.log('Brand kit event:', event, data);
+});</pre>
+        </div>
+    </div>
+
+    <script>
+        // Mock brand kit manager for testing without auth
+        window.brandKitManager = {
+            brandKit: {
+                id: 'test_123',
+                company_id: 'test_company',
+                primary_color: '#4F46E5',
+                text_color: '#FFFFFF',
+                logo_url: null,
+                font_family: 'Inter',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            },
+            isDefault: false,
+
+            getBrandKit() {
+                return this.brandKit;
+            },
+
+            async fetch() {
+                showResponse('Brand kit loaded (mock data)');
+                updateUI();
+                return this.brandKit;
+            },
+
+            async save(data) {
+                this.brandKit = { ...this.brandKit, ...data };
+                this.isDefault = false;
+                showResponse('Brand kit saved (mock)', data);
+                updateUI();
+                return this.brandKit;
+            },
+
+            async updateProperty(property, value) {
+                this.brandKit[property] = value;
+                showResponse(`Updated ${property} to ${value} (mock)`);
+                updateUI();
+                return this.brandKit;
+            },
+
+            async reset() {
+                this.brandKit = {
+                    primary_color: '#4F46E5',
+                    text_color: '#FFFFFF',
+                    font_family: 'Inter'
+                };
+                this.isDefault = true;
+                showResponse('Brand kit reset to defaults (mock)');
+                updateUI();
+                return this.brandKit;
+            },
+
+            isValidHexColor(color) {
+                return /^#[0-9A-Fa-f]{6}$/.test(color);
+            }
+        };
+
+        function loadBrandKit() {
+            window.brandKitManager.fetch();
+        }
+
+        function saveBrandKit() {
+            const primary = document.getElementById('primary-input').value;
+            const text = document.getElementById('text-input').value;
+
+            window.brandKitManager.save({
+                primary_color: primary.toUpperCase(),
+                text_color: text.toUpperCase()
+            });
+        }
+
+        function resetBrandKit() {
+            if (confirm('Reset brand kit to defaults?')) {
+                window.brandKitManager.reset();
+            }
+        }
+
+        function updatePrimaryColor() {
+            const color = document.getElementById('primary-input').value;
+            if (window.brandKitManager.isValidHexColor(color)) {
+                window.brandKitManager.updateProperty('primary_color', color.toUpperCase());
+            } else {
+                alert('Invalid hex color format');
+            }
+        }
+
+        function updateTextColor() {
+            const color = document.getElementById('text-input').value;
+            if (window.brandKitManager.isValidHexColor(color)) {
+                window.brandKitManager.updateProperty('text_color', color.toUpperCase());
+            } else {
+                alert('Invalid hex color format');
+            }
+        }
+
+        function updateUI() {
+            const brandKit = window.brandKitManager.getBrandKit();
+
+            // Update status
+            document.getElementById('kit-status').textContent = 'Loaded';
+            document.getElementById('company-id').textContent = brandKit.company_id || 'N/A';
+            document.getElementById('is-default').textContent = window.brandKitManager.isDefault ? 'Yes' : 'No';
+
+            // Update color displays
+            if (brandKit.primary_color) {
+                document.getElementById('primary-color-box').style.backgroundColor = brandKit.primary_color;
+                document.getElementById('primary-hex').textContent = brandKit.primary_color;
+                document.getElementById('primary-picker').value = brandKit.primary_color;
+                document.getElementById('primary-input').value = brandKit.primary_color;
+            }
+
+            if (brandKit.text_color) {
+                document.getElementById('text-color-box').style.backgroundColor = brandKit.text_color;
+                document.getElementById('text-hex').textContent = brandKit.text_color;
+                document.getElementById('text-picker').value = brandKit.text_color;
+                document.getElementById('text-input').value = brandKit.text_color;
+
+                // Adjust text color for visibility
+                const textBox = document.getElementById('text-color-box');
+                if (brandKit.text_color === '#FFFFFF') {
+                    textBox.style.color = '#333';
+                    textBox.style.border = '2px solid #333';
+                } else {
+                    textBox.style.color = 'white';
+                    textBox.style.border = '2px solid #ddd';
+                }
+            }
+        }
+
+        function showResponse(message, data = null) {
+            const responseEl = document.getElementById('api-response');
+            const timestamp = new Date().toLocaleTimeString();
+
+            let output = `[${timestamp}] ${message}`;
+            if (data) {
+                output += '\n\n' + JSON.stringify(data, null, 2);
+            }
+
+            responseEl.textContent = output;
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadBrandKit();
+
+            // Sync color pickers with inputs
+            document.getElementById('primary-picker').addEventListener('input', (e) => {
+                document.getElementById('primary-input').value = e.target.value.toUpperCase();
+            });
+
+            document.getElementById('text-picker').addEventListener('input', (e) => {
+                document.getElementById('text-input').value = e.target.value.toUpperCase();
+            });
+        });
+    </script>
+</body>
+</html>

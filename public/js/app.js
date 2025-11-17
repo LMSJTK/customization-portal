@@ -128,6 +128,78 @@ class CustomizationPortal {
                 this.applyBrandKit();
             });
         }
+
+        // Brand kit color controls
+        this.setupBrandKitControls();
+    }
+
+    /**
+     * Setup brand kit color picker controls
+     */
+    setupBrandKitControls() {
+        const colorPicker = document.getElementById('color-picker');
+        const colorHex = document.getElementById('color-hex');
+        const addColorBtn = document.querySelector('.btn-add-color');
+
+        // Color picker change
+        if (colorPicker) {
+            colorPicker.addEventListener('input', async (e) => {
+                const color = e.target.value.toUpperCase();
+                if (colorHex) colorHex.value = color;
+
+                // Auto-save color
+                try {
+                    await window.brandKitManager.updateProperty('primary_color', color);
+                    this.showSuccessMessage('Primary color updated');
+                } catch (error) {
+                    console.error('Error saving color:', error);
+                }
+            });
+        }
+
+        // Hex input change
+        if (colorHex) {
+            colorHex.addEventListener('change', async (e) => {
+                let color = e.target.value.trim();
+
+                // Add # if missing
+                if (!color.startsWith('#')) {
+                    color = '#' + color;
+                }
+
+                // Validate and save
+                if (window.brandKitManager.isValidHexColor(color)) {
+                    color = color.toUpperCase();
+                    if (colorPicker) colorPicker.value = color;
+                    e.target.value = color;
+
+                    try {
+                        await window.brandKitManager.updateProperty('primary_color', color);
+                        this.showSuccessMessage('Primary color updated');
+                    } catch (error) {
+                        console.error('Error saving color:', error);
+                        this.showError('Invalid color format');
+                    }
+                } else {
+                    this.showError('Invalid hex color format. Use #RRGGBB');
+                }
+            });
+        }
+
+        // Add color button (placeholder for future)
+        if (addColorBtn) {
+            addColorBtn.addEventListener('click', () => {
+                console.log('Add color to palette - coming soon');
+            });
+        }
+    }
+
+    /**
+     * Show success message
+     */
+    showSuccessMessage(message) {
+        // Simple console log for now - can be upgraded to toast notification
+        console.log('Success:', message);
     }
 
     /**
@@ -266,6 +338,9 @@ class CustomizationPortal {
         const modal = document.getElementById('brand-kit-modal');
         if (modal) {
             modal.style.display = 'flex';
+
+            // Load current brand kit values into modal
+            this.loadBrandKitIntoModal();
         }
     }
 
@@ -280,16 +355,59 @@ class CustomizationPortal {
     }
 
     /**
+     * Load brand kit values into modal UI
+     */
+    loadBrandKitIntoModal() {
+        if (!window.brandKitManager) return;
+
+        const brandKit = window.brandKitManager.getBrandKit();
+        if (!brandKit) return;
+
+        // Update color inputs if they exist
+        const colorPicker = document.getElementById('color-picker');
+        const colorHex = document.getElementById('color-hex');
+
+        if (colorPicker && brandKit.primary_color) {
+            colorPicker.value = brandKit.primary_color;
+        }
+
+        if (colorHex && brandKit.primary_color) {
+            colorHex.value = brandKit.primary_color;
+        }
+
+        // Update status indicator
+        const statusIndicator = document.querySelector('.brand-kit-status span:last-child');
+        if (statusIndicator) {
+            if (window.brandKitManager.isUsingDefaults()) {
+                statusIndicator.textContent = 'Using Default Brand Kit';
+            } else {
+                statusIndicator.textContent = 'Custom Brand Kit Active';
+            }
+        }
+
+        console.log('Loaded brand kit into modal:', brandKit);
+    }
+
+    /**
      * Apply brand kit to content
      */
     async applyBrandKit() {
         try {
             console.log('Applying brand kit to content:', this.currentContentId);
 
-            // TODO: Implement actual brand kit application
-            // This will be expanded in future iterations
+            if (!window.brandKitManager) {
+                throw new Error('Brand kit manager not initialized');
+            }
 
-            alert('Brand kit will be applied to the content. This feature is coming soon!');
+            const brandKit = window.brandKitManager.getBrandKit();
+
+            // Show feedback to user
+            const isDefault = window.brandKitManager.isUsingDefaults();
+            const message = isDefault
+                ? 'Default brand kit will be applied to this content.'
+                : `Your custom brand kit will be applied:\n- Primary Color: ${brandKit.primary_color}\n- Text Color: ${brandKit.text_color}\n- Font: ${brandKit.font_family}`;
+
+            alert(message + '\n\nNote: Full editor integration coming soon!');
 
             this.closeBrandKitModal();
         } catch (error) {
