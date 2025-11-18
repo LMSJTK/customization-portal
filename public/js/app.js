@@ -139,6 +139,9 @@ class CustomizationPortal {
 
         // Brand kit color controls
         this.setupBrandKitControls();
+
+        // Logo upload controls
+        this.setupLogoUpload();
     }
 
     /**
@@ -231,6 +234,89 @@ class CustomizationPortal {
                 } catch (error) {
                     console.error('Error saving brand kit:', error);
                     this.showError('Failed to save brand kit: ' + error.message);
+                }
+            });
+        }
+    }
+
+    /**
+     * Setup logo upload controls
+     */
+    setupLogoUpload() {
+        const logoUploadArea = document.getElementById('logo-upload');
+        const logoFileInput = document.getElementById('logo-file-input');
+        const logoPreviewContainer = document.getElementById('logo-preview-container');
+        const logoPreview = document.getElementById('logo-preview');
+        const removeLogoBtn = document.getElementById('remove-logo-btn');
+
+        // Click upload area to trigger file input
+        if (logoUploadArea && logoFileInput) {
+            logoUploadArea.addEventListener('click', () => {
+                logoFileInput.click();
+            });
+        }
+
+        // Handle file selection
+        if (logoFileInput) {
+            logoFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                try {
+                    // Show loading state
+                    logoUploadArea.innerHTML = '<p>Uploading...</p>';
+
+                    // Upload logo
+                    const url = await window.brandKitManager.uploadLogo(file);
+
+                    // Show preview
+                    if (logoPreview && logoPreviewContainer) {
+                        logoPreview.src = url;
+                        logoPreviewContainer.style.display = 'block';
+                        logoUploadArea.style.display = 'none';
+                    }
+
+                    this.showSuccessMessage('Logo uploaded successfully!');
+                    alert('Logo uploaded! Click "Apply Brand Kit" in the editor to use it.');
+                } catch (error) {
+                    console.error('Error uploading logo:', error);
+                    this.showError('Failed to upload logo: ' + error.message);
+
+                    // Reset upload area
+                    logoUploadArea.innerHTML = `
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 32px; color: #9ca3af;"></i>
+                        <p style="margin: 8px 0 4px 0; font-weight: 600;">Click to Upload Logo</p>
+                        <p class="upload-hint" style="font-size: 12px; color: #6b7280;">JPG, PNG, GIF, WebP, SVG up to 5MB</p>
+                    `;
+                }
+
+                // Clear file input
+                e.target.value = '';
+            });
+        }
+
+        // Handle logo removal
+        if (removeLogoBtn) {
+            removeLogoBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+
+                if (!confirm('Remove logo from brand kit?')) {
+                    return;
+                }
+
+                try {
+                    await window.brandKitManager.removeLogo();
+
+                    // Hide preview, show upload area
+                    if (logoPreviewContainer && logoUploadArea) {
+                        logoPreviewContainer.style.display = 'none';
+                        logoUploadArea.style.display = 'block';
+                    }
+
+                    this.showSuccessMessage('Logo removed');
+                } catch (error) {
+                    console.error('Error removing logo:', error);
+                    this.showError('Failed to remove logo: ' + error.message);
                 }
             });
         }
@@ -429,6 +515,22 @@ class CustomizationPortal {
         if (preview && brandKit.primary_color && brandKit.text_color) {
             preview.style.backgroundColor = brandKit.primary_color;
             preview.style.color = brandKit.text_color;
+        }
+
+        // Update logo preview
+        const logoPreview = document.getElementById('logo-preview');
+        const logoPreviewContainer = document.getElementById('logo-preview-container');
+        const logoUploadArea = document.getElementById('logo-upload');
+
+        if (brandKit.logo_url && logoPreview && logoPreviewContainer && logoUploadArea) {
+            // Show logo preview
+            logoPreview.src = brandKit.logo_url;
+            logoPreviewContainer.style.display = 'block';
+            logoUploadArea.style.display = 'none';
+        } else if (logoPreviewContainer && logoUploadArea) {
+            // Hide logo preview, show upload area
+            logoPreviewContainer.style.display = 'none';
+            logoUploadArea.style.display = 'block';
         }
 
         // Update status indicator
