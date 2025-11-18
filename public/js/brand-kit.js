@@ -147,15 +147,22 @@ class BrandKitManager {
             const formData = new FormData();
             formData.append('logo', file);
 
-            // Upload file
-            const response = await window.authManager.apiCall(
-                '/api/upload-logo.php',
-                {
-                    method: 'POST',
-                    body: formData,
-                    headers: {} // Let browser set Content-Type for FormData
-                }
-            );
+            // Get access token
+            const accessToken = window.authManager.getAccessToken();
+            if (!accessToken) {
+                throw new Error('Not authenticated');
+            }
+
+            // Upload file using fetch directly (don't use apiCall as it sets Content-Type: application/json)
+            // For FormData, we need to let the browser set Content-Type automatically with boundary
+            const response = await fetch('/api/upload-logo.php', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                    // Don't set Content-Type - browser will set it to multipart/form-data with boundary
+                },
+                body: formData
+            });
 
             if (!response.ok) {
                 const errorData = await response.json();
