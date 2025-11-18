@@ -75,6 +75,14 @@ class CustomizationPortal {
                 }
             });
         }
+
+        // Brand Kit button
+        const brandKitBtn = document.getElementById('brand-kit-btn');
+        if (brandKitBtn) {
+            brandKitBtn.addEventListener('click', () => {
+                this.showBrandKitModal();
+            });
+        }
     }
 
     /**
@@ -139,57 +147,91 @@ class CustomizationPortal {
     setupBrandKitControls() {
         const colorPicker = document.getElementById('color-picker');
         const colorHex = document.getElementById('color-hex');
-        const addColorBtn = document.querySelector('.btn-add-color');
+        const textColorPicker = document.getElementById('text-color-picker');
+        const textColorHex = document.getElementById('text-color-hex');
+        const saveBtn = document.getElementById('save-brand-kit-modal');
+        const preview = document.getElementById('color-preview');
 
-        // Color picker change
+        // Update preview helper
+        const updatePreview = () => {
+            if (preview && colorPicker && textColorPicker) {
+                preview.style.backgroundColor = colorPicker.value;
+                preview.style.color = textColorPicker.value;
+            }
+        };
+
+        // Primary color picker change
         if (colorPicker) {
-            colorPicker.addEventListener('input', async (e) => {
+            colorPicker.addEventListener('input', (e) => {
                 const color = e.target.value.toUpperCase();
                 if (colorHex) colorHex.value = color;
-
-                // Auto-save color
-                try {
-                    await window.brandKitManager.updateProperty('primary_color', color);
-                    this.showSuccessMessage('Primary color updated');
-                } catch (error) {
-                    console.error('Error saving color:', error);
-                }
+                updatePreview();
             });
         }
 
-        // Hex input change
+        // Primary hex input change
         if (colorHex) {
-            colorHex.addEventListener('change', async (e) => {
+            colorHex.addEventListener('change', (e) => {
                 let color = e.target.value.trim();
+                if (!color.startsWith('#')) color = '#' + color;
 
-                // Add # if missing
-                if (!color.startsWith('#')) {
-                    color = '#' + color;
-                }
-
-                // Validate and save
-                if (window.brandKitManager.isValidHexColor(color)) {
+                if (window.brandKitManager && window.brandKitManager.isValidHexColor(color)) {
                     color = color.toUpperCase();
                     if (colorPicker) colorPicker.value = color;
                     e.target.value = color;
-
-                    try {
-                        await window.brandKitManager.updateProperty('primary_color', color);
-                        this.showSuccessMessage('Primary color updated');
-                    } catch (error) {
-                        console.error('Error saving color:', error);
-                        this.showError('Invalid color format');
-                    }
+                    updatePreview();
                 } else {
                     this.showError('Invalid hex color format. Use #RRGGBB');
                 }
             });
         }
 
-        // Add color button (placeholder for future)
-        if (addColorBtn) {
-            addColorBtn.addEventListener('click', () => {
-                console.log('Add color to palette - coming soon');
+        // Text color picker change
+        if (textColorPicker) {
+            textColorPicker.addEventListener('input', (e) => {
+                const color = e.target.value.toUpperCase();
+                if (textColorHex) textColorHex.value = color;
+                updatePreview();
+            });
+        }
+
+        // Text hex input change
+        if (textColorHex) {
+            textColorHex.addEventListener('change', (e) => {
+                let color = e.target.value.trim();
+                if (!color.startsWith('#')) color = '#' + color;
+
+                if (window.brandKitManager && window.brandKitManager.isValidHexColor(color)) {
+                    color = color.toUpperCase();
+                    if (textColorPicker) textColorPicker.value = color;
+                    e.target.value = color;
+                    updatePreview();
+                } else {
+                    this.showError('Invalid hex color format. Use #RRGGBB');
+                }
+            });
+        }
+
+        // Save button
+        if (saveBtn) {
+            saveBtn.addEventListener('click', async () => {
+                try {
+                    const primaryColor = colorPicker ? colorPicker.value.toUpperCase() : '#4F46E5';
+                    const textColor = textColorPicker ? textColorPicker.value.toUpperCase() : '#FFFFFF';
+
+                    await window.brandKitManager.save({
+                        primary_color: primaryColor,
+                        text_color: textColor
+                    });
+
+                    this.showSuccessMessage('Brand kit saved successfully!');
+
+                    // Show a visible success alert
+                    alert('Brand kit saved! Your custom colors are now available in the editor.');
+                } catch (error) {
+                    console.error('Error saving brand kit:', error);
+                    this.showError('Failed to save brand kit: ' + error.message);
+                }
             });
         }
     }
@@ -358,7 +400,7 @@ class CustomizationPortal {
         const brandKit = window.brandKitManager.getBrandKit();
         if (!brandKit) return;
 
-        // Update color inputs if they exist
+        // Update primary color inputs
         const colorPicker = document.getElementById('color-picker');
         const colorHex = document.getElementById('color-hex');
 
@@ -368,6 +410,25 @@ class CustomizationPortal {
 
         if (colorHex && brandKit.primary_color) {
             colorHex.value = brandKit.primary_color;
+        }
+
+        // Update text color inputs
+        const textColorPicker = document.getElementById('text-color-picker');
+        const textColorHex = document.getElementById('text-color-hex');
+
+        if (textColorPicker && brandKit.text_color) {
+            textColorPicker.value = brandKit.text_color;
+        }
+
+        if (textColorHex && brandKit.text_color) {
+            textColorHex.value = brandKit.text_color;
+        }
+
+        // Update preview
+        const preview = document.getElementById('color-preview');
+        if (preview && brandKit.primary_color && brandKit.text_color) {
+            preview.style.backgroundColor = brandKit.primary_color;
+            preview.style.color = brandKit.text_color;
         }
 
         // Update status indicator
