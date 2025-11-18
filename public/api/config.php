@@ -56,6 +56,9 @@ define('OKTA_ISSUER', getenv('OKTA_ISSUER') ?: '');
 define('APP_URL', getenv('APP_URL') ?: 'http://localhost');
 define('API_URL', getenv('API_URL') ?: 'http://localhost/api');
 
+// Content configuration
+define('CONTENT_BASE_PATH', getenv('CONTENT_BASE_PATH') ?: '/var/www/html/content');
+
 // CORS configuration
 define('CORS_ALLOWED_ORIGINS', getenv('CORS_ALLOWED_ORIGINS') ?: '*');
 

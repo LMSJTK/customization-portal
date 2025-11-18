@@ -177,22 +177,77 @@ function handlePut($db, $user) {
         return;
     }
 
-    // Update content
-    $updated = updateContent($db, $contentId, $data, $user);
+    // Get the original content to check if it's file-based
+    $originalContent = getContentById($db, $contentId, $user);
 
-    if (!$updated) {
+    if (!$originalContent) {
         http_response_code(404);
         echo json_encode([
-            'error' => 'Content not found or unauthorized',
+            'error' => 'Content not found',
             'code' => 'NOT_FOUND'
         ]);
         return;
     }
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Content updated successfully'
-    ]);
+    // If content is file-based and being edited, create a customized copy for the organization
+    if (!empty($originalContent['is_file_based']) && isset($data['email_body_html'])) {
+        $companyId = $user['organization_id'] ?? 'unknown';
+
+        // Check if a customized version already exists for this company
+        $customizedId = findCustomizedContent($db, $contentId, $companyId);
+
+        if ($customizedId) {
+            // Update existing customized version
+            $updated = updateContent($db, $customizedId, $data, $user);
+            $resultId = $customizedId;
+        } else {
+            // Create new customized version
+            $customizedData = [
+                'title' => $originalContent['title'] . ' (Customized)',
+                'description' => $originalContent['description'],
+                'content_type' => $originalContent['content_type'],
+                'email_subject' => $originalContent['email_subject'] ?? null,
+                'email_body_html' => $data['email_body_html'],
+                'original_content_id' => $contentId // Store reference to original
+            ];
+
+            $resultId = createContent($db, $customizedData, $user);
+            $updated = true;
+        }
+
+        if (!$updated) {
+            http_response_code(500);
+            echo json_encode([
+                'error' => 'Failed to save customized content',
+                'code' => 'SAVE_FAILED'
+            ]);
+            return;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Customized content saved successfully',
+            'id' => $resultId,
+            'is_customized' => true
+        ]);
+    } else {
+        // Normal update for database-stored content
+        $updated = updateContent($db, $contentId, $data, $user);
+
+        if (!$updated) {
+            http_response_code(404);
+            echo json_encode([
+                'error' => 'Content not found or unauthorized',
+                'code' => 'NOT_FOUND'
+            ]);
+            return;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Content updated successfully'
+        ]);
+    }
 }
 
 /**
@@ -229,13 +284,87 @@ function handleDelete($db, $user) {
 }
 
 /**
+ * Find customized content for a company based on original content ID
+ */
+function findCustomizedContent($db, $originalContentId, $companyId) {
+    $tableName = getTableName('content');
+
+    // Try to find by original_content_id if that column exists
+    try {
+        $sql = "SELECT id FROM $tableName
+                WHERE original_content_id = :original_id
+                AND company_id = :company_id
+                LIMIT 1";
+        $result = $db->queryOne($sql, [
+            'original_id' => $originalContentId,
+            'company_id' => $companyId
+        ]);
+
+        return $result ? $result['id'] : null;
+    } catch (Exception $e) {
+        // Column doesn't exist yet, return null
+        return null;
+    }
+}
+
+/**
  * Get content by ID
  */
 function getContentById($db, $contentId, $user) {
     $tableName = getTableName('content');
     $sql = "SELECT * FROM $tableName WHERE id = :id LIMIT 1";
     $result = $db->queryOne($sql, ['id' => $contentId]);
-    return $result ?: null;
+
+    if (!$result) {
+        return null;
+    }
+
+    // If content is file-based (has content_url but no email_body_html), fetch HTML from file
+    if (!empty($result['content_url']) && empty($result['email_body_html'])) {
+        $result['email_body_html'] = fetchHtmlFromFile($result['content_url']);
+        $result['is_file_based'] = true;
+        $result['original_content_url'] = $result['content_url'];
+    } else {
+        $result['is_file_based'] = false;
+    }
+
+    return $result;
+}
+
+/**
+ * Fetch HTML from file system
+ */
+function fetchHtmlFromFile($relativePath) {
+    // Remove leading slash if present
+    $relativePath = ltrim($relativePath, '/');
+
+    // Build full path
+    $fullPath = CONTENT_BASE_PATH . '/' . $relativePath;
+
+    // Security: Prevent directory traversal
+    $realPath = realpath($fullPath);
+    $basePath = realpath(CONTENT_BASE_PATH);
+
+    if (!$realPath || strpos($realPath, $basePath) !== 0) {
+        error_log('Invalid content path: ' . $fullPath);
+        throw new Exception('Invalid content path');
+    }
+
+    // Check if file exists
+    if (!file_exists($realPath)) {
+        error_log('Content file not found: ' . $realPath);
+        throw new Exception('Content file not found');
+    }
+
+    // Read and return file contents
+    $html = file_get_contents($realPath);
+
+    if ($html === false) {
+        error_log('Failed to read content file: ' . $realPath);
+        throw new Exception('Failed to read content file');
+    }
+
+    return $html;
 }
 
 /**
@@ -283,6 +412,10 @@ function createContent($db, $data, $user) {
     $companyId = $user['organization_id'] ?? 'unknown';
 
     $tableName = getTableName('content');
+
+    // Check if original_content_id is provided (for customized content)
+    $hasOriginalId = !empty($data['original_content_id']);
+
     $sql = "INSERT INTO $tableName (
                 id,
                 company_id,
@@ -295,7 +428,8 @@ function createContent($db, $data, $user) {
                 email_subject,
                 email_body_html,
                 email_attachment_filename,
-                email_attachment_content,
+                email_attachment_content," .
+                ($hasOriginalId ? " original_content_id," : "") . "
                 created_at,
                 updated_at
             ) VALUES (
@@ -310,7 +444,8 @@ function createContent($db, $data, $user) {
                 :email_subject,
                 :email_body_html,
                 :email_attachment_filename,
-                :email_attachment_content,
+                :email_attachment_content," .
+                ($hasOriginalId ? " :original_content_id," : "") . "
                 NOW(),
                 NOW()
             )";
@@ -329,6 +464,11 @@ function createContent($db, $data, $user) {
         'email_attachment_filename' => $data['email_attachment_filename'] ?? null,
         'email_attachment_content' => $data['email_attachment_content'] ?? null,
     ];
+
+    // Add original_content_id if provided
+    if ($hasOriginalId) {
+        $params['original_content_id'] = $data['original_content_id'];
+    }
 
     $db->execute($sql, $params);
 
