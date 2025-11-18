@@ -262,12 +262,28 @@ class CustomizationPortal {
                 const file = e.target.files[0];
                 if (!file) return;
 
+                // Store original upload area content (excluding the file input)
+                const uploadAreaContent = Array.from(logoUploadArea.children)
+                    .filter(child => child !== logoFileInput)
+                    .map(child => child.outerHTML)
+                    .join('');
+
                 try {
-                    // Show loading state
-                    logoUploadArea.innerHTML = '<p>Uploading...</p>';
+                    // Show loading state (keep file input)
+                    Array.from(logoUploadArea.children).forEach(child => {
+                        if (child !== logoFileInput) {
+                            child.style.display = 'none';
+                        }
+                    });
+                    const loadingEl = document.createElement('p');
+                    loadingEl.textContent = 'Uploading...';
+                    logoUploadArea.appendChild(loadingEl);
 
                     // Upload logo
                     const url = await window.brandKitManager.uploadLogo(file);
+
+                    // Remove loading
+                    loadingEl.remove();
 
                     // Show preview
                     if (logoPreview && logoPreviewContainer) {
@@ -282,16 +298,25 @@ class CustomizationPortal {
                     console.error('Error uploading logo:', error);
                     this.showError('Failed to upload logo: ' + error.message);
 
-                    // Reset upload area
-                    logoUploadArea.innerHTML = `
-                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 32px; color: #9ca3af;"></i>
-                        <p style="margin: 8px 0 4px 0; font-weight: 600;">Click to Upload Logo</p>
-                        <p class="upload-hint" style="font-size: 12px; color: #6b7280;">JPG, PNG, GIF, WebP, SVG up to 5MB</p>
-                    `;
+                    // Restore upload area (remove loading, show original content)
+                    Array.from(logoUploadArea.children).forEach(child => {
+                        if (child !== logoFileInput) {
+                            child.remove();
+                        }
+                    });
+
+                    // Re-add original content
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = uploadAreaContent;
+                    Array.from(tempDiv.children).forEach(child => {
+                        logoUploadArea.appendChild(child);
+                    });
                 }
 
-                // Clear file input
-                e.target.value = '';
+                // Clear file input (use logoFileInput reference instead of e.target)
+                if (logoFileInput) {
+                    logoFileInput.value = '';
+                }
             });
         }
 
