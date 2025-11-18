@@ -61,6 +61,10 @@ class EmailEditor {
             if (data.success && data.content) {
                 this.content = data.content;
                 this.renderContent();
+
+                // Load brand kit
+                await this.loadBrandKit();
+
                 this.hideLoading();
             } else {
                 throw new Error('Content not found');
@@ -68,6 +72,23 @@ class EmailEditor {
         } catch (error) {
             console.error('Error loading content:', error);
             this.showError('Failed to load content: ' + error.message);
+        }
+    }
+
+    /**
+     * Load brand kit
+     */
+    async loadBrandKit() {
+        try {
+            if (!window.brandKitManager) {
+                console.warn('Brand kit manager not available');
+                return;
+            }
+
+            await window.brandKitManager.fetch();
+            console.log('Brand kit loaded in editor:', window.brandKitManager.getBrandKit());
+        } catch (error) {
+            console.error('Error loading brand kit:', error);
         }
     }
 
@@ -532,30 +553,46 @@ class EmailEditor {
      */
     async applyBrandKit() {
         if (!window.brandKitManager) {
-            this.showError('Brand kit not available');
+            this.showError('Brand kit manager not available');
             return;
         }
 
         const brandKit = window.brandKitManager.getBrandKit();
+
+        if (!brandKit) {
+            this.showError('Brand kit not loaded. Please try again.');
+            // Try to load it
+            await this.loadBrandKit();
+            return;
+        }
+
+        console.log('Applying brand kit:', brandKit);
+
         const preview = document.getElementById('email-preview');
 
         // Apply to header
         const header = preview.querySelector('#email-header');
         if (header) {
+            console.log('Applying to header:', brandKit.primary_color, brandKit.text_color);
             header.style.backgroundColor = brandKit.primary_color;
             header.style.color = brandKit.text_color;
 
-            // Apply to nested editable elements
+            // Apply to nested editable elements in header
             header.querySelectorAll('.editable-element').forEach(el => {
                 el.style.color = brandKit.text_color;
             });
+        } else {
+            console.warn('Header element #email-header not found');
         }
 
         // Apply to button
         const button = preview.querySelector('#email-button');
         if (button) {
+            console.log('Applying to button:', brandKit.primary_color, brandKit.text_color);
             button.style.backgroundColor = brandKit.primary_color;
             button.style.color = brandKit.text_color;
+        } else {
+            console.warn('Button element #email-button not found');
         }
 
         // Update UI

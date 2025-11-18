@@ -31,6 +31,9 @@
             <div class="header-content">
                 <h1>Cofense Customization Portal</h1>
                 <div class="user-menu">
+                    <button id="brand-kit-btn" class="btn-secondary" style="margin-right: 12px;">
+                        🎨 Brand Kit
+                    </button>
                     <span id="user-name" class="user-name"></span>
                     <span id="user-org" class="user-org"></span>
                     <button id="logout-btn" class="btn-secondary">Sign Out</button>
@@ -110,15 +113,38 @@
                     <div class="brand-kit-right">
                         <div class="brand-kit-section">
                             <h3>Brand Colours</h3>
-                            <div class="color-picker-container">
-                                <div class="color-gradient"></div>
-                                <input type="color" id="color-picker" class="color-input">
-                                <input type="text" id="color-hex" class="color-hex-input" placeholder="#4F46E5">
+                            <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px;">Choose colours that will be applied to buttons, highlights, and headers.</p>
+
+                            <!-- Primary Color -->
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; font-weight: 500; margin-bottom: 8px;">Primary Color</label>
+                                <div class="color-picker-container" style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="color" id="color-picker" class="color-input" style="width: 50px; height: 40px; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer;">
+                                    <input type="text" id="color-hex" class="color-hex-input" placeholder="#4F46E5" style="flex: 1; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-family: monospace;">
+                                </div>
                             </div>
-                            <div class="saved-colors">
-                                <!-- Saved colors will appear here -->
+
+                            <!-- Text Color -->
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; font-weight: 500; margin-bottom: 8px;">Text Color</label>
+                                <div class="color-picker-container" style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="color" id="text-color-picker" class="color-input" style="width: 50px; height: 40px; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer;">
+                                    <input type="text" id="text-color-hex" class="color-hex-input" placeholder="#FFFFFF" style="flex: 1; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-family: monospace;">
+                                </div>
                             </div>
-                            <button class="btn-add-color">+ Add Color</button>
+
+                            <!-- Preview -->
+                            <div style="margin-top: 24px; padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb;">
+                                <label style="display: block; font-weight: 500; margin-bottom: 8px;">Preview</label>
+                                <div id="color-preview" style="padding: 16px; border-radius: 6px; text-align: center; font-weight: 600; background-color: #4F46E5; color: #FFFFFF;">
+                                    Your Brand Colors
+                                </div>
+                            </div>
+
+                            <!-- Save Button -->
+                            <button id="save-brand-kit-modal" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 12px;">
+                                Save Brand Kit
+                            </button>
                         </div>
                     </div>
                 </div>
