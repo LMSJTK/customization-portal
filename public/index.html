@@ -94,9 +94,17 @@
                         </div>
                         <div class="brand-kit-section">
                             <h3>Logo</h3>
-                            <div class="upload-area" id="logo-upload">
-                                <p>Upload Logo</p>
-                                <p class="upload-hint">JPG, JPEG, PNG, GIF, WebP up to 10MB</p>
+                            <div id="logo-preview-container" style="display: none; margin-bottom: 16px; padding: 16px; background: white; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
+                                <img id="logo-preview" src="" alt="Brand Logo" style="max-width: 100%; max-height: 150px; object-fit: contain;">
+                                <div style="margin-top: 8px;">
+                                    <button id="remove-logo-btn" class="btn-secondary" style="font-size: 13px; padding: 6px 12px;">Remove Logo</button>
+                                </div>
+                            </div>
+                            <div class="upload-area" id="logo-upload" style="cursor: pointer; position: relative;">
+                                <input type="file" id="logo-file-input" accept="image/*" style="display: none;">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 32px; color: #9ca3af;"></i>
+                                <p style="margin: 8px 0 4px 0; font-weight: 600;">Click to Upload Logo</p>
+                                <p class="upload-hint" style="font-size: 12px; color: #6b7280;">JPG, PNG, GIF, WebP, SVG up to 5MB</p>
                             </div>
                         </div>
                         <div class="brand-kit-section">

@@ -122,6 +122,85 @@ class BrandKitManager {
     }
 
     /**
+     * Upload logo file
+     */
+    async uploadLogo(file) {
+        try {
+            // Validate file
+            if (!file) {
+                throw new Error('No file provided');
+            }
+
+            // Check file type
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+            if (!allowedTypes.includes(file.type)) {
+                throw new Error('Invalid file type. Only images are allowed (JPG, PNG, GIF, WebP, SVG)');
+            }
+
+            // Check file size (5MB max)
+            const maxSize = 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+                throw new Error(`File size exceeds 5MB limit. File is ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('logo', file);
+
+            // Upload file
+            const response = await window.authManager.apiCall(
+                '/api/upload-logo.php',
+                {
+                    method: 'POST',
+                    body: formData,
+                    headers: {} // Let browser set Content-Type for FormData
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to upload logo');
+            }
+
+            const data = await response.json();
+
+            if (data.success && data.url) {
+                // Save logo URL to brand kit
+                await this.updateProperty('logo_url', data.url);
+
+                console.log('Logo uploaded successfully:', data.url);
+
+                // Notify listeners
+                this.notifyListeners('logo_uploaded', { url: data.url });
+
+                return data.url;
+            } else {
+                throw new Error('Upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading logo:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Remove logo
+     */
+    async removeLogo() {
+        try {
+            await this.updateProperty('logo_url', null);
+
+            // Notify listeners
+            this.notifyListeners('logo_removed', {});
+
+            return true;
+        } catch (error) {
+            console.error('Error removing logo:', error);
+            throw error;
+        }
+    }
+
+    /**
      * Delete brand kit (reset to defaults)
      */
     async reset() {
